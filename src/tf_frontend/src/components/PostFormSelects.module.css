@@ -1,0 +1,34 @@
+.subHeading {
+  position: relative;
+  line-height: 12px;
+}
+.categorydropdown {
+  position: relative;
+  width: 395px;
+  height: 48px;
+}
+.headingbox,
+.postform {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-franklin-gothic-book);
+}
+.headingbox {
+  border: 0;
+  background-color: transparent;
+  position: relative;
+  width: 395px;
+  height: 48px;
+}
+.postform {
+  position: absolute;
+  top: 282px;
+  left: 615px;
+  height: 369px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  text-align: left;
+  color: var(--color-black);
+}

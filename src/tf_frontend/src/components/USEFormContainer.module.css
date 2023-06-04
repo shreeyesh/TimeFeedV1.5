@@ -1,0 +1,166 @@
+.image55Icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 337px;
+  height: 337px;
+  object-fit: cover;
+}
+.frameChild,
+.image55Wrapper {
+  border-radius: var(--br-5xs);
+  overflow: hidden;
+}
+.image55Wrapper {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: var(--primary-dark-blue);
+  width: 274px;
+  height: 322px;
+}
+.frameChild {
+  position: relative;
+  width: 102px;
+  height: 102px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.frameParent {
+  position: absolute;
+  top: 8px;
+  left: 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.image29Icon {
+  position: absolute;
+  height: 115.38%;
+  width: 115.38%;
+  top: -5.77%;
+  right: -7.69%;
+  bottom: -9.61%;
+  left: -7.69%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.profile {
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--nft-app-white);
+  border: 2px solid var(--grey-200);
+  box-sizing: border-box;
+  width: 46px;
+  height: 46px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 0;
+}
+.verified2Icon {
+  position: absolute;
+  margin: 0 !important;
+  height: 46.59%;
+  width: 56.16%;
+  top: 64.31%;
+  right: -13.11%;
+  bottom: -10.9%;
+  left: 56.94%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.profileParent {
+  position: absolute;
+  top: 342px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.formationOfUse {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 267px;
+  flex-shrink: 0;
+}
+.formationOfUseWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.description {
+  position: relative;
+  line-height: 16px;
+  font-weight: 500;
+}
+.descriptionWrapper,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  justify-content: center;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.frameGroup {
+  position: absolute;
+  top: 347px;
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xs);
+}
+.vuesaxboldheartIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+.div {
+  position: relative;
+  font-weight: 600;
+}
+.favorit,
+.like {
+  position: absolute;
+}
+.like {
+  top: 344px;
+  left: 309px;
+  border-radius: var(--br-81xl);
+  background-color: var(--grey-100);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-4xs) var(--padding-sm);
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3xs);
+  color: var(--grey-600);
+}
+.favorit {
+  top: 1325px;
+  left: 491px;
+  border-radius: var(--br-xs);
+  background-color: var(--nft-app-white);
+  box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
+  width: 470px;
+  height: 335px;
+  text-align: left;
+  font-size: var(--inter-medium-16-size);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

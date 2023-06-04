@@ -1,0 +1,140 @@
+@keyframes shadow-drop-bottom {
+  0% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  to {
+    box-shadow: 0 12px 20px -12px rgb(0 0 0/35%);
+  }
+}
+.text {
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 33px);
+  font-size: var(--inter-medium-16-size);
+  line-height: 16px;
+  font-family: var(--font-franklin-gothic-medium);
+  color: var(--nft-app-white);
+  text-align: center;
+}
+.mintNftButton {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-mediumslateblue);
+  position: absolute;
+  width: calc(100% - 188px);
+  right: 87px;
+  bottom: 0;
+  left: 101px;
+  border-radius: var(--br-29xl);
+  height: 56px;
+}
+.mintNftButton:hover {
+  background-color: var(--color-maroon);
+  border: 1.5px solid var(--color-black);
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.backgroundIcon,
+.uploadAreaIcon {
+  border-radius: var(--br-5xs);
+  object-fit: cover;
+}
+.backgroundIcon {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  width: 448px;
+  height: 341px;
+}
+.uploadAreaIcon {
+  top: -2px;
+  left: -7px;
+  width: 382.21px;
+  height: 267px;
+}
+.uploadAreaIcon:hover {
+  animation: 1s ease 0s infinite normal both shadow-drop-bottom;
+  opacity: 1;
+}
+.button,
+.or1,
+.uploadAreaIcon {
+  position: absolute;
+}
+.button {
+  top: 149.99px;
+  left: 63px;
+  width: 125px;
+  height: 56px;
+  appearance: none;
+}
+.or1 {
+  top: 0;
+  left: 49px;
+  text-transform: uppercase;
+  display: inline-block;
+  width: 27px;
+  height: 26px;
+}
+.groupChild,
+.or,
+.orParent {
+  position: absolute;
+  top: 10.98px;
+  left: 0;
+  width: 125.22px;
+  height: 2px;
+}
+.or,
+.orParent {
+  top: 0;
+  height: 26px;
+}
+.or {
+  top: 109px;
+  left: 54px;
+}
+.dragYourDocuments {
+  position: absolute;
+  top: 58.99px;
+  left: 0;
+  color: var(--color-slategray-100);
+  display: inline-block;
+  width: 250.28px;
+  height: 38px;
+}
+.folderIcon {
+  position: absolute;
+  top: 0;
+  left: 92.93px;
+  width: 48.1px;
+  height: 48.54px;
+  object-fit: cover;
+}
+.addimage,
+.uploadsection {
+  position: absolute;
+  top: 20px;
+  left: 59px;
+  width: 250.28px;
+  height: 205.99px;
+}
+.uploadsection {
+  top: 29px;
+  left: 25px;
+  width: 368.21px;
+  height: 253px;
+}
+.upload {
+  position: absolute;
+  width: calc(100% - 1022px);
+  right: 967px;
+  bottom: 295px;
+  left: 55px;
+  height: 492px;
+  text-align: center;
+  font-size: var(--inter-medium-16-size);
+  color: var(--color-lightsteelblue-200);
+  font-family: var(--inter-medium-16);
+}

@@ -1,0 +1,229 @@
+.image29Icon,
+.image58Icon {
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+}
+.image58Icon {
+  left: 1px;
+  border-radius: var(--br-5xs);
+  width: 300px;
+  height: 330px;
+}
+.image29Icon {
+  height: 115.38%;
+  width: 115.38%;
+  right: -15.38%;
+  bottom: -15.38%;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.profile,
+.profile1,
+.profile2,
+.profile3,
+.profile4 {
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--nft-app-white);
+  border: 2px solid var(--grey-200);
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 0;
+}
+.profile1,
+.profile2,
+.profile3,
+.profile4 {
+  z-index: 1;
+  margin-left: -12px;
+}
+.profile2,
+.profile3,
+.profile4 {
+  z-index: 2;
+}
+.profile3,
+.profile4 {
+  z-index: 3;
+}
+.profile4 {
+  z-index: 4;
+}
+.verified2Icon {
+  position: absolute;
+  margin: 0 !important;
+  height: 55.56%;
+  width: 13.89%;
+  top: 63.89%;
+  right: -1.77%;
+  bottom: -19.44%;
+  left: 87.88%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  z-index: 5;
+}
+.profileParent {
+  position: absolute;
+  top: 310px;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameChild,
+.iconlyboldgraph {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.frameChild {
+  border-radius: var(--br-23xl);
+  width: 124px;
+  height: 48px;
+  object-fit: cover;
+}
+.iconlyboldgraph {
+  height: 96%;
+  width: 22.87%;
+  right: 77.13%;
+  bottom: 4%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.div {
+  position: absolute;
+  top: 3px;
+  left: 28.92px;
+  letter-spacing: 0.01em;
+  line-height: 22px;
+  font-weight: 500;
+}
+.iconlyboldgraphParent {
+  position: absolute;
+  top: 11px;
+  left: 11.08px;
+  width: 100.92px;
+  height: 25px;
+}
+.auctions1,
+.auctionsChild,
+.rectangleParent {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 124px;
+  height: 48px;
+}
+.auctions1,
+.auctionsChild {
+  left: 242px;
+  width: 48px;
+  height: 102px;
+}
+.auctions1 {
+  top: 8px;
+  left: 8px;
+  border-radius: var(--br-xs);
+  width: 302px;
+  height: 330px;
+  background-image: url(/public/auctions@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  color: var(--nft-app-white);
+}
+.formationOfUse {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 267px;
+  flex-shrink: 0;
+}
+.image29Icon5 {
+  position: relative;
+  width: 14.77px;
+  height: 24px;
+  object-fit: cover;
+}
+.formationOfUseParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.iFeelLike {
+  margin: 0;
+}
+.description {
+  position: relative;
+  line-height: 16px;
+  font-weight: 500;
+}
+.descriptionWrapper,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  justify-content: center;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.frameGroup,
+.frameParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.frameParent {
+  position: absolute;
+  top: 374px;
+  left: 12px;
+  gap: var(--gap-25xl);
+  font-size: var(--font-size-xl);
+}
+.div1,
+.timeGained {
+  position: absolute;
+  top: 472px;
+  font-weight: 600;
+}
+.timeGained {
+  left: 28px;
+  display: inline-block;
+  width: 221px;
+}
+.div1 {
+  left: 249px;
+  color: var(--primary-blue);
+  text-align: right;
+}
+.auctions {
+  position: relative;
+  border-radius: var(--br-xs);
+  background-color: var(--nft-app-white);
+  box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
+  width: 318px;
+  height: 500px;
+  overflow: hidden;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: var(--inter-medium-16-size);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

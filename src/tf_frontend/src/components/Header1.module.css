@@ -1,0 +1,120 @@
+.frameChild,
+.timefeedLowResolutionLogoB {
+  border: 0;
+  background-color: transparent;
+  position: relative;
+}
+.timefeedLowResolutionLogoB {
+  cursor: pointer;
+  padding: 0;
+  width: 272px;
+  height: 74px;
+  background-image: url(/public/timefeedlowresolutionlogoblackonwhitebackground3@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.frameChild {
+  font-family: var(--inter-medium-16);
+  font-size: var(--inter-medium-16-size);
+  width: 337px;
+  height: 56px;
+}
+.darkModeChild {
+  position: absolute;
+  top: 16px;
+  left: 51px;
+  width: 28px;
+  height: 27px;
+}
+.darkMode,
+.explore {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  position: relative;
+}
+.darkMode {
+  background-color: var(--color-dodgerblue);
+  border-radius: var(--br-31xl);
+  width: 89px;
+  height: 59px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.explore {
+  background-color: transparent;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-family: var(--inter-medium-16);
+  color: var(--primary-blue);
+  text-align: left;
+  display: inline-block;
+}
+.menus {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+}
+.groupIcon,
+.groupIcon1 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.groupIcon1 {
+  height: 83.33%;
+  width: 83.33%;
+  top: 8.33%;
+  right: 8.33%;
+  bottom: 8.33%;
+  left: 8.33%;
+}
+.accountCircleBlack24dp2 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+.accountBalanceWalletBlack2Icon,
+.accountCircleBlack24dp2 {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.timefeedLowResolutionLogoBParent {
+  width: 1351px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--nft-app-white);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-17xl) var(--padding-25xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+}

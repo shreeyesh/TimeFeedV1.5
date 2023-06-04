@@ -1,0 +1,105 @@
+.sectionTitle {
+  position: relative;
+  line-height: 64px;
+  font-weight: 800;
+  display: inline-block;
+  width: 540px;
+}
+.description {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--subtitle-subtitle-2-size);
+  line-height: 32px;
+}
+.sectionHeading {
+  width: 540px;
+  gap: var(--gap-5xs);
+}
+.ctaMessage,
+.sectionHeading {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.getTheApp1 {
+  position: relative;
+  line-height: 28px;
+  font-weight: 500;
+}
+.layer2Icon {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.downloadBadgeGooglePlayB {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  width: 135px;
+  height: 40px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.badges,
+.content,
+.getTheApp {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.badges {
+  flex-direction: row;
+  gap: var(--gap-xs);
+}
+.content,
+.getTheApp {
+  flex-direction: column;
+}
+.getTheApp {
+  gap: var(--gap-5xs);
+  font-size: var(--subtitle-subtitle-2-size);
+}
+.content {
+  position: absolute;
+  top: calc(50% - 177.5px);
+  left: 60px;
+  gap: var(--gap-29xl);
+}
+.phoneMockup1,
+.phoneMockup2 {
+  position: absolute;
+  top: 0;
+  left: 864px;
+  width: 292px;
+  height: 464px;
+  object-fit: cover;
+}
+.phoneMockup2 {
+  top: 73px;
+  left: 1128px;
+}
+.cta9 {
+  position: absolute;
+  top: 5959px;
+  left: 0;
+  background-color: var(--grey-100);
+  width: 1440px;
+  height: 491px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--heading-h2-size);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

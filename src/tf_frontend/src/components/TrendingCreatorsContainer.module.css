@@ -1,0 +1,326 @@
+.trendingCreators1 {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 302px;
+  flex-shrink: 0;
+}
+.frameChild {
+  position: relative;
+  border-radius: var(--br-81xl);
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.frameParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.creatorsheader,
+.trendingCreatorsParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.trendingCreatorsParent {
+  flex: 1;
+  justify-content: space-between;
+}
+.creatorsheader {
+  align-self: stretch;
+  justify-content: flex-start;
+}
+.image66Icon {
+  position: absolute;
+  top: 0;
+  left: 130px;
+  width: 600px;
+  height: 171.43px;
+  object-fit: cover;
+}
+.image29Icon,
+.image66Wrapper {
+  position: absolute;
+  overflow: hidden;
+}
+.image66Wrapper {
+  top: 8px;
+  left: 8px;
+  border-radius: var(--br-5xs);
+  background-color: var(--nft-app-white);
+  width: 384px;
+  height: 100px;
+}
+.image29Icon {
+  height: 115.38%;
+  width: 115.38%;
+  top: 0;
+  right: -15.38%;
+  bottom: -15.38%;
+  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.profile {
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--nft-app-white);
+  border: 2px solid var(--grey-200);
+  box-sizing: border-box;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 0;
+}
+.verified2Icon {
+  position: absolute;
+  margin: 0 !important;
+  height: 46.59%;
+  width: 56.16%;
+  top: 64.31%;
+  right: -13.11%;
+  bottom: -10.89%;
+  left: 56.94%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.profileParent {
+  position: absolute;
+  top: 64px;
+  left: 164px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.shayneMclaughlin {
+  position: relative;
+  font-weight: 600;
+}
+.byach {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+.clanByachContainer {
+  position: relative;
+  font-size: var(--inter-medium-16-size);
+  display: inline-block;
+  width: 140px;
+  color: var(--grey-500);
+}
+.shayneMclaughlinParent {
+  position: absolute;
+  top: 152px;
+  left: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.k,
+.posts {
+  position: relative;
+}
+.k {
+  font-weight: 600;
+  color: var(--text-black);
+}
+.postsParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.identity {
+  background-color: var(--nft-app-white);
+  border-right: 1px solid var(--color-aliceblue);
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-9xs) var(--padding-xs);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.image30Icon {
+  position: relative;
+  width: 9.85px;
+  height: 16px;
+  object-fit: cover;
+}
+.identity3,
+.image30Parent,
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.image30Parent {
+  justify-content: center;
+  gap: var(--gap-9xs);
+  color: var(--text-black);
+}
+.identity3,
+.info {
+  justify-content: flex-start;
+}
+.identity3 {
+  background-color: var(--nft-app-white);
+  padding: var(--padding-9xs) var(--padding-xs);
+}
+.info {
+  position: absolute;
+  top: 215px;
+  left: 21px;
+  gap: var(--gap-lg);
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-500);
+}
+.creatorcard {
+  position: relative;
+  border-radius: var(--br-xs);
+  background-color: var(--nft-app-white);
+  box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
+  width: 400px;
+  height: 270px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.image67Icon,
+.image71Icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 200px;
+  object-fit: cover;
+}
+.image71Icon {
+  height: 116.67%;
+  width: 116.67%;
+  right: -16.67%;
+  bottom: -16.67%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.clanGhostContainer {
+  position: relative;
+  font-size: var(--inter-medium-16-size);
+  color: var(--grey-500);
+}
+.image68Icon,
+.image68Icon1,
+.image69Icon1,
+.image70Icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 375px;
+  object-fit: cover;
+}
+.image68Icon1,
+.image69Icon1,
+.image70Icon {
+  height: 480.08px;
+}
+.image68Icon1,
+.image69Icon1 {
+  top: -36px;
+  left: -108px;
+  height: 375px;
+}
+.image69Icon1 {
+  height: 116.67%;
+  width: 116.67%;
+  top: -6.94%;
+  right: -8.33%;
+  bottom: -9.72%;
+  left: -8.33%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.creatorrow {
+  position: absolute;
+  top: 0;
+  left: -200px;
+  width: 1318px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.image29Icon2,
+.image66Icon1 {
+  position: absolute;
+  top: -36px;
+  left: -108px;
+  width: 600px;
+  height: 171.43px;
+  object-fit: cover;
+}
+.image29Icon2 {
+  height: 115.38%;
+  width: 115.38%;
+  top: -5.77%;
+  right: -7.69%;
+  bottom: -9.61%;
+  left: -7.69%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.image55Icon,
+.image67Icon1 {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 600px;
+  height: 200px;
+  object-fit: cover;
+}
+.image55Icon {
+  left: 0;
+  width: 434px;
+  height: 434px;
+}
+.creatorrow1 {
+  position: absolute;
+  top: 286px;
+  left: 240px;
+  width: 1318px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--gap-base);
+}
+.creatorrowParent {
+  position: relative;
+  width: 1318px;
+  height: 556px;
+  font-size: var(--font-size-xl);
+}
+.trendingCreators {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-21xl);
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

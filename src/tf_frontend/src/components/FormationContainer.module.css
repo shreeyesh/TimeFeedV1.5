@@ -1,0 +1,58 @@
+.formationOfUse {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 267px;
+  flex-shrink: 0;
+}
+.image29Icon {
+  position: relative;
+  width: 14.77px;
+  height: 24px;
+  object-fit: cover;
+}
+.formationOfUseParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.iFeelLike {
+  margin: 0;
+}
+.description {
+  position: relative;
+  line-height: 16px;
+  font-weight: 500;
+}
+.descriptionWrapper,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  justify-content: center;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.frameGroup,
+.frameParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.frameParent {
+  position: absolute;
+  top: 374px;
+  left: 12px;
+  gap: var(--gap-25xl);
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

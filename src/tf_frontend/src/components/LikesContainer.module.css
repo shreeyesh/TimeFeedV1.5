@@ -1,0 +1,37 @@
+.lineIcon {
+  align-self: stretch;
+  position: relative;
+  max-height: 100%;
+  width: 2px;
+  object-fit: cover;
+}
+.label,
+.number {
+  position: relative;
+  line-height: 40px;
+  display: inline-block;
+  width: 237px;
+}
+.label {
+  font-size: var(--inter-medium-16-size);
+  line-height: 26px;
+  text-align: justify;
+}
+.details,
+.div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.details {
+  overflow: hidden;
+  flex-direction: column;
+}
+.div {
+  flex-direction: row;
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--heading-h4-size);
+  color: var(--nft-app-white);
+  font-family: var(--inter-medium-16);
+}

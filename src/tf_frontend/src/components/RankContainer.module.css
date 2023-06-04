@@ -1,0 +1,146 @@
+.b,
+.image29Icon {
+  position: absolute;
+}
+.b {
+  top: 24px;
+  left: 12px;
+  font-size: var(--font-size-xl);
+  line-height: 160%;
+}
+.image29Icon {
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+.profile {
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--nft-app-white);
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 0;
+}
+.description,
+.label {
+  position: relative;
+  font-weight: 500;
+}
+.label {
+  align-self: stretch;
+  line-height: 20px;
+}
+.description {
+  line-height: 16px;
+}
+.descriptionParent,
+.descriptionWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--grey-700);
+}
+.descriptionParent {
+  justify-content: center;
+  gap: var(--gap-xs);
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-500);
+}
+.info {
+  width: 206px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  z-index: 1;
+}
+.verified1Icon {
+  position: absolute;
+  margin: 0 !important;
+  bottom: -8px;
+  left: 28px;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  z-index: 2;
+}
+.profileParent {
+  position: absolute;
+  top: 14px;
+  left: 46px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+  color: var(--text-black);
+}
+.label1 {
+  position: relative;
+  line-height: 20px;
+  font-weight: 500;
+}
+.image28Icon {
+  position: relative;
+  width: 7px;
+  height: 12px;
+  object-fit: cover;
+}
+.image28Parent,
+.info1 {
+  display: flex;
+  gap: var(--gap-9xs);
+}
+.image28Parent {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.info1 {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: 345px;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+  color: var(--green-3);
+}
+.dividerIcon {
+  position: absolute;
+  top: 79px;
+  left: 45px;
+  width: 340px;
+  height: 1px;
+}
+.userrank {
+  position: relative;
+  background-color: var(--nft-app-white);
+  width: 430px;
+  height: 80px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.rankrow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--inter-medium-16-size);
+  color: var(--grey-700);
+  font-family: var(--inter-medium-16);
+}

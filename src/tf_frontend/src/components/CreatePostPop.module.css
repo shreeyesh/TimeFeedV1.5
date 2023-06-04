@@ -1,0 +1,137 @@
+.text {
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 18px);
+  font-size: var(--inter-medium-16-size);
+  line-height: 16px;
+  font-family: var(--font-franklin-gothic-medium);
+  color: var(--nft-app-white);
+  text-align: center;
+}
+.postButton {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-mediumslateblue);
+  position: absolute;
+  width: calc(100% - 1210px);
+  right: 513px;
+  bottom: 301px;
+  left: 697px;
+  border-radius: var(--br-29xl);
+  height: 56px;
+}
+.postButton:hover {
+  background-color: var(--color-maroon);
+  border: 1.5px solid var(--color-black);
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.frameChild,
+.timefeedLowResolutionLogoB {
+  border: 0;
+  background-color: transparent;
+  position: relative;
+}
+.timefeedLowResolutionLogoB {
+  cursor: pointer;
+  padding: 0;
+  width: 272px;
+  height: 74px;
+  background-image: url(/public/timefeedlowresolutionlogoblackonwhitebackground3@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.frameChild {
+  font-family: var(--inter-medium-16);
+  font-size: var(--inter-medium-16-size);
+  width: 337px;
+  height: 56px;
+}
+.darkModeChild {
+  position: absolute;
+  top: 16px;
+  left: 51px;
+  width: 28px;
+  height: 27px;
+}
+.darkMode,
+.explore {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  position: relative;
+}
+.darkMode {
+  background-color: var(--color-dodgerblue);
+  border-radius: var(--br-31xl);
+  width: 89px;
+  height: 59px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.explore {
+  background-color: transparent;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-family: var(--inter-medium-16);
+  color: var(--primary-blue);
+  text-align: left;
+  display: inline-block;
+}
+.menus {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+}
+.accountBalanceWalletBlack2Icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.timefeedLowResolutionLogoBParent {
+  width: 1351px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar,
+.sectionhomepage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--nft-app-white);
+}
+.navbar {
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-17xl) var(--padding-25xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sectionhomepage {
+  width: 1440px;
+  height: 1024px;
+  overflow: hidden;
+}
+.createpostpop {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}

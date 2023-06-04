@@ -8,7 +8,7 @@
     "tf_frontend": {
       "type": "assets",
       "source": [
-        "src/tf_frontend/assets"
+        "src/tf_frontend/public"
       ],
       "dependencies": [
         "tf_backend"

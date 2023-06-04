@@ -1,0 +1,9 @@
+.textbox {
+  border: 0;
+  background-color: transparent;
+  font-family: var(--font-franklin-gothic-book);
+  font-size: var(--font-size-xl);
+  position: relative;
+  width: 395px;
+  height: 219px;
+}

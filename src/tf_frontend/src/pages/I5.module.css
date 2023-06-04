@@ -1,0 +1,330 @@
+.image29Icon,
+.image50Icon {
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+}
+.image50Icon {
+  left: 0.57px;
+  border-radius: var(--br-5xs);
+  width: 301.71px;
+  height: 330px;
+}
+.image29Icon {
+  height: 115.38%;
+  width: 115.38%;
+  right: -15.38%;
+  bottom: -15.38%;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.profile,
+.profile1,
+.profile2,
+.profile3,
+.profile4 {
+  position: relative;
+  border-radius: var(--br-81xl);
+  background-color: var(--nft-app-white);
+  border: 2px solid var(--grey-200);
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 0;
+}
+.profile1,
+.profile2,
+.profile3,
+.profile4 {
+  z-index: 1;
+  margin-left: -12px;
+}
+.profile2,
+.profile3,
+.profile4 {
+  z-index: 2;
+}
+.profile3,
+.profile4 {
+  z-index: 3;
+}
+.profile4 {
+  z-index: 4;
+}
+.verified2Icon {
+  position: absolute;
+  margin: 0 !important;
+  height: 55.56%;
+  width: 13.89%;
+  top: 63.89%;
+  right: -1.77%;
+  bottom: -19.44%;
+  left: 87.88%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  z-index: 5;
+}
+.profileParent {
+  position: absolute;
+  top: 310px;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.groupChild,
+.groupChild:hover {
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  backdrop-filter: blur(32px);
+}
+.groupChild {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-23xl);
+  background-color: var(--color-dimgray-100);
+  width: 48px;
+  height: 48px;
+  mix-blend-mode: lighten;
+  appearance: none;
+}
+.groupChild:hover {
+  background-color: var(--color-tomato-200);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.groupChild:active {
+  background-color: var(--color-tomato-100);
+}
+.groupChild:checked {
+  background-color: var(--color-tomato-100);
+}
+.vuesaxboldheartIcon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+}
+.auctionsChild,
+.rectangleParent {
+  position: absolute;
+  top: 12px;
+  left: 242px;
+  width: 48px;
+  height: 48px;
+}
+.auctionsChild {
+  cursor: pointer;
+  top: 72px;
+  border-radius: var(--br-23xl);
+  background-color: var(--color-gray-900);
+  backdrop-filter: blur(32px);
+  appearance: none;
+}
+.auctionsChild:active,
+.auctionsChild:hover {
+  background-color: var(--color-tomato-300);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+}
+.auctionsChild:checked {
+  background-color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-600);
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(32px);
+  appearance: none;
+}
+.groupItem,
+.vuesaxlinearheartSlashIcon {
+  position: absolute;
+  top: 84px;
+  left: 254px;
+  width: 24px;
+  height: 24px;
+}
+.groupItem {
+  top: 0;
+  left: 0;
+  border-radius: var(--br-23xl);
+  width: 124px;
+  height: 48px;
+  object-fit: cover;
+}
+.iconlyboldgraph {
+  position: absolute;
+  height: 88.89%;
+  width: 24.04%;
+  top: 0;
+  right: 74.83%;
+  bottom: 11.11%;
+  left: 1.13%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.path33909Icon,
+.vuesaxlinearunlimitedIcon {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+}
+.path33909Icon {
+  height: 63.18%;
+  width: 17.59%;
+  top: 18.3%;
+  right: 82.4%;
+  bottom: 18.52%;
+  left: 0.01%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.div {
+  position: absolute;
+  top: 3px;
+  left: 25px;
+  font-size: var(--inter-medium-16-size);
+  letter-spacing: 0.01em;
+  line-height: 22px;
+  font-weight: 500;
+  font-family: var(--inter-medium-16);
+  color: var(--nft-app-white);
+  text-align: left;
+}
+.iconlyboldgraphParent {
+  position: absolute;
+  height: 56.25%;
+  width: 77.42%;
+  top: 22.92%;
+  right: 14.52%;
+  bottom: 20.83%;
+  left: 8.06%;
+}
+.rectangleGroup {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  width: 124px;
+  height: 48px;
+}
+.auctions {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  border-radius: var(--br-xs);
+  width: 302px;
+  height: 330px;
+  background-image: url(/public/auctions@3x.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.formationOfUse {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 267px;
+  flex-shrink: 0;
+}
+.image29Icon5 {
+  position: relative;
+  width: 14.77px;
+  height: 24px;
+  object-fit: cover;
+}
+.formationOfUseParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.iFeelLike {
+  margin: 0;
+}
+.description {
+  position: relative;
+  line-height: 16px;
+  font-weight: 500;
+}
+.descriptionWrapper,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  justify-content: center;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.frameGroup,
+.frameParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.frameParent {
+  position: absolute;
+  top: 374px;
+  left: 12px;
+  gap: var(--gap-25xl);
+  font-size: var(--font-size-xl);
+}
+.div1,
+.timeGained {
+  position: absolute;
+  top: 463px;
+  font-weight: 600;
+}
+.timeGained {
+  left: 30px;
+  display: inline-block;
+  width: 221px;
+}
+.div1 {
+  left: 251px;
+  color: var(--primary-blue);
+  text-align: right;
+}
+.i5,
+.i51 {
+  height: 492px;
+}
+.i51 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-xs);
+  background-color: var(--nft-app-white);
+  box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
+  width: 318px;
+  overflow: hidden;
+}
+.i5 {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  font-size: var(--inter-medium-16-size);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}

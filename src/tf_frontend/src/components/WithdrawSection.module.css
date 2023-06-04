@@ -1,0 +1,146 @@
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-base);
+  background-color: var(--primary-blue);
+  width: 1320px;
+  height: 248px;
+}
+.bgMaskChild {
+  left: 152.57px;
+  width: 1384.71px;
+  height: 582.44px;
+  opacity: 0.08;
+}
+.bgMask,
+.bgMaskChild,
+.bgMaskItem {
+  position: absolute;
+  top: 0;
+}
+.bgMaskItem {
+  left: 200.14px;
+  width: 1384.71px;
+  height: 546.19px;
+  opacity: 0.08;
+}
+.bgMask {
+  left: 0;
+  width: 1320px;
+  height: 248px;
+}
+.withdrawTime {
+  position: relative;
+  display: inline-block;
+  width: 542px;
+}
+.withdrawTimeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.joinOurMailing,
+.withdraw {
+  position: relative;
+  display: inline-block;
+}
+.joinOurMailing {
+  font-size: var(--inter-medium-16-size);
+  line-height: 160%;
+  color: var(--grey-100);
+  width: 542px;
+}
+.withdraw {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  font-family: var(--inter-medium-16);
+  color: var(--primary-blue);
+  text-align: center;
+}
+.button,
+.withdrawcta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.button {
+  cursor: pointer;
+  border: 1px solid var(--primary-blue);
+  padding: var(--padding-base) var(--padding-21xl);
+  background-color: var(--nft-app-white);
+  border-radius: var(--br-31xl);
+}
+.button:active,
+.button:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.withdrawcta {
+  gap: var(--gap-xs);
+}
+.parent,
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.parent {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.wrapper {
+  align-items: center;
+  justify-content: center;
+}
+.frameParent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.withdrawdata {
+  position: relative;
+  width: 540px;
+  height: 162px;
+  font-size: var(--heading-h4-size);
+}
+.withdrawtime {
+  position: absolute;
+  top: 34px;
+  left: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-141xl);
+}
+.cta,
+.cta7 {
+  position: absolute;
+  top: 32px;
+  left: 60px;
+  width: 1320px;
+  height: 248px;
+}
+.cta7 {
+  top: 5678px;
+  left: 0;
+  background: linear-gradient(180deg, #fff, #f5f7fa);
+  width: 1440px;
+  height: 312px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--nft-app-white);
+  font-family: var(--inter-medium-16);
+}

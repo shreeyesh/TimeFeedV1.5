@@ -1,0 +1,102 @@
+.formationOfUse {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 267px;
+  flex-shrink: 0;
+}
+.image29Icon {
+  position: relative;
+  width: 14.77px;
+  height: 24px;
+  object-fit: cover;
+}
+.formationOfUseParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.iFeelLike {
+  margin: 0;
+}
+.description {
+  position: relative;
+  line-height: 16px;
+  font-weight: 500;
+}
+.descriptionWrapper,
+.frameWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  justify-content: center;
+  font-size: var(--text-xs-regular-size);
+  color: var(--grey-700);
+}
+.frameGroup,
+.frameParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.frameParent {
+  position: absolute;
+  top: 374px;
+  left: 12px;
+  gap: var(--gap-25xl);
+  font-size: var(--font-size-xl);
+}
+.div,
+.timeGained {
+  position: absolute;
+  top: 463px;
+  font-weight: 600;
+}
+.timeGained {
+  left: 30px;
+  display: inline-block;
+  width: 221px;
+}
+.div {
+  left: 251px;
+  color: var(--primary-blue);
+  text-align: right;
+}
+.property1default {
+  position: relative;
+  border-radius: var(--br-xs);
+  background-color: var(--nft-app-white);
+  box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
+  width: 318px;
+  height: 492px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.i81 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-8xs);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.i8 {
+  position: relative;
+  width: 100%;
+  height: 532px;
+  text-align: left;
+  font-size: var(--inter-medium-16-size);
+  color: var(--text-black);
+  font-family: var(--inter-medium-16);
+}
