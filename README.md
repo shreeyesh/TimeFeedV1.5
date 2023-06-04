@@ -1,30 +1,62 @@
-# tf
+# TimeFeedV1.5
 
-Welcome to your new tf project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+# TimeFeedV1.5
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+TimeFeedV1.5 is a web application that allows users to create and share posts in different categories. It provides a platform for users to express their thoughts, share interesting content, and engage in discussions.
 
-To learn more before you start working with tf, see the following documentation available online:
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/quickstart/hello10mins)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/build/install-upgrade-remove)
-- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/developer-docs/build/cdks/motoko-dfinity/motoko/)
-- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/references/motoko-ref/)
-- [JavaScript API Reference](https://erxue-5aaaa-aaaab-qaagq-cai.raw.icp0.io)
+## Features
 
-If you want to start working on your project right away, you might want to try the following commands:
+- User registration and authentication
+- Create and edit posts with titles, content, images, and categories
+- View posts by category or all posts
+- Like and dislike posts
+- Real-time updates with WebSocket integration
+- Responsive design for mobile and desktop devices
 
-```bash
-cd tf/
-dfx help
-dfx canister --help
+## Installation
+
+To run the TimeFeedV1.5 application locally, follow these steps:
+
+1. Clone the repository:
+
+   ```shell
+   git clone https://github.com/shreeyesh/TimeFeedV1.5.git
 ```
+2. Get into the directory:
+   ```shell
+   cd tf/src/tf_frontend
+   ```
+3. Install the dependencies:
 
-## Running the project locally
+   ```shell
+    npm install
+    ```
+4. Start the application:
 
-If you want to test your project locally, you can use the following commands:
+   ```shell
+    npm start
+    ```
+5. Open the application in your browser:
 
-```bash
+   ```shell
+    http://localhost:3000
+    ```
+
+   ```
+To deploy Canisters
+1. Get into the directory:
+   ```shell
+   cd tf/src/tf_Backend
+   ```
+   ```bash
 # Starts the replica, running in the background
 dfx start --background
 
@@ -44,11 +76,48 @@ at any time. This is recommended before starting the frontend development server
 
 If you are making frontend changes, you can start a development server with
 
-```bash
-npm start
-```
+## Usage
+Open your web browser and navigate to http://localhost:3000.
+Register a new user account or log in with an existing account.
+Explore the application features such as creating posts, browsing posts by category, and interacting with other users' posts.
+Enjoy sharing your thoughts and engaging with the TimeFeedV1.5 community!
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+## Technologies
+The TimeFeedV1.5 application is built with the following technologies:
+
+Front-end:
+
+React.js: JavaScript library for building user interfaces.
+React Router: Library for handling routing in a React application.
+Axios: Promise-based HTTP client for making API requests.
+Socket.io-client: WebSocket library for real-time communication.
+CSS Modules: CSS styling approach for scoped styles.
+Back-end:
+
+Node.js: JavaScript runtime for running server-side applications.
+Express: Web framework for building server-side applications.
+MongoDB: NoSQL database for storing user and post data.
+Mongoose: Object Data Modeling (ODM) library for MongoDB.
+## Contributing
+Contributions to the TimeFeedV1.5 project are welcome! If you find any issues or have suggestions for improvements, please open an issue on the GitHub repository. You can also fork the repository, make your changes, and submit a pull request.
+
+When contributing to this repository, please ensure that you follow the code of conduct.
+
+## License
+The TimeFeedV1.5 project is licensed under the MIT License.
+
+
+Welcome to your new TimeFeed project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+
+To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+
+To learn more before you start working with tf, see the following documentation available online:
+
+- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/quickstart/hello10mins)
+- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/build/install-upgrade-remove)
+- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/developer-docs/build/cdks/motoko-dfinity/motoko/)
+- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/references/motoko-ref/)
+- [JavaScript API Reference](https://erxue-5aaaa-aaaab-qaagq-cai.raw.icp0.io)
 
 ### Note on frontend environment variables
 
