@@ -1,4 +1,4 @@
-# TimeFeedV1.5
+
 
 # TimeFeedV1.5
 
@@ -29,7 +29,7 @@ To run the TimeFeedV1.5 application locally, follow these steps:
 
    ```shell
    git clone https://github.com/shreeyesh/TimeFeedV1.5.git
-```
+      ```
 2. Get into the directory:
    ```shell
    cd tf/src/tf_frontend
@@ -50,27 +50,29 @@ To run the TimeFeedV1.5 application locally, follow these steps:
     http://localhost:3000
     ```
 
-   ```
+   
 To deploy Canisters
 1. Get into the directory:
    ```shell
    cd tf/src/tf_Backend
    ```
-   ```bash
-# Starts the replica, running in the background
-dfx start --background
+2. Starts the replica, running in the background
+   ```shell
+   dfx start --background
+   ```
 
-# Deploys your canisters to the replica and generates your candid interface
-dfx deploy
-```
+3. Deploys your canisters to the replica and generates your candid interface
+   ```shell
+   dfx deploy
+   ````
 
 Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
 
 If you have made changes to your backend canister, you can generate a new candid interface with
 
-```bash
-npm run generate
-```
+   ```bash
+   npm run generate
+   ```
 
 at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
 
