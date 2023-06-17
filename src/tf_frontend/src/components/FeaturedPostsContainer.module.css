@@ -1,6 +1,7 @@
 .featuredPosts {
   position: relative;
   font-weight: 600;
+  padding-right: 90px;
 }
 .featuredPostsWrapper {
   display: flex;

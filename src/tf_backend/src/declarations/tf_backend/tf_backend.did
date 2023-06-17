@@ -1,0 +1,22 @@
+type TimeFeedImpl = 
+ service {
+   create_post: (text, text, text) -> (nat);
+   downvote: (nat) -> ();
+   get_downvotes: (nat) -> (nat);
+   get_post: (nat) -> (opt Post);
+   get_post_count: () -> (nat);
+   get_timer: (nat) -> (int);
+   get_upvotes: (nat) -> (nat);
+   upvote: (nat) -> ();
+ };
+type Post = 
+ record {
+   content: text;
+   creator: principal;
+   dislikes: nat;
+   id: nat;
+   likes: nat;
+   timer: int;
+   title: text;
+ };
+service : () -> TimeFeedImpl

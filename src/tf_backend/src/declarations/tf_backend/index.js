@@ -14,7 +14,6 @@ export const canisterId =
   process.env.TF_BACKEND_CANISTER_ID;
 
 export const createActor = (canisterId, options = {}) => {
-  options.actorOptions = { host: "http://127.0.0.1:4943/"};
   const agent = options.agent || new HttpAgent({ ...options.agentOptions });
 
   if (options.agent && options.agentOptions) {

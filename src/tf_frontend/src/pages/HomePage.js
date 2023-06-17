@@ -286,11 +286,10 @@ const HomePage = () => {
       <input
         className={styles.withdrawfield}
         type="number"
-        placeholder="200"
+        placeholder="20"
         min={0.1}
         required
       />
-      <div className={styles.withdrawamount}>100</div>
       <button
         className={styles.chevronRightBlack24dp15Wrapper}
         onClick={onFrameButtonClick}

@@ -1,10 +1,12 @@
 @keyframes scale-up {
-  0% {
+  
+  /* For the animation to work, the transform property must be set to scale(1) in the .image29Icon and .image49Icon classes */
+  /* 0% {
     transform: scale(0.5);
   }
   to {
     transform: scale(1);
-  }
+  } */
 }
 .image29Icon,
 .image49Icon {

@@ -16,8 +16,21 @@ const CreatePostPop = ({ onClose }) => {
     useState(false);
   const navigate = useNavigate();
   const openPostSuccessPopPopup = useCallback(() => {
-    setPostSuccessPopPopupOpen(true);
-  }, []);
+    console.log("here")
+        setPostSuccessPopPopupOpen(true);
+    console.log("headingBoxValue : ",headingBoxValue)
+    console.log("textBoxValue : ",textBoxValue)
+    console.log("categoryValue : ",categoryValue)
+
+    const content = textBoxValue;
+      const title = headingBoxValue;
+      const category = getCategoryName(categoryValue);
+      // const image = "Hello world!";
+      let result = post(title,content, category);
+      console.log("Post result:", result);
+
+    // post(headingBoxValue,textBoxValue,categoryValue);
+  }, [headingBoxValue, textBoxValue, categoryValue]);
 
   const closePostSuccessPopPopup = useCallback(() => {
     setPostSuccessPopPopupOpen(false);
@@ -45,7 +58,8 @@ const CreatePostPop = ({ onClose }) => {
   // For IC integration
   const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
     // const agent = new HttpAgent();
-    const agent = new HttpAgent({ host: "https://ic0.app" });
+    const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+    agent.fetchRootKey();
     const canister = Actor.createActor(canisterIdlFactory, {
       agent,
       canisterId,
@@ -55,14 +69,16 @@ const CreatePostPop = ({ onClose }) => {
     console.log("headingBoxValue : ",headingBoxValue)
     console.log("textBoxValue : ",textBoxValue)
     console.log("categoryValue : ",categoryValue)
-    console.log("category : ",getCategoryName(categoryValue))
+    let categoryName = getCategoryName(categoryValue)
+    // setCategory(categoryName);
+    console.log("category : ",categoryName)
 
     // Post function using the canister
     const post = async (title,content,category) => {
       // const hello = hello.toString();
       try {
-        const image = "https://www.example.com/image.jpg";
-        const result = await canister.create_post("title","content",image.toString(),"category");
+        // const image = "https://www.example.com/image.jpg";
+        const result = await canister.create_post(title,content,category);
         console.log("Post result:", result);
       } catch (error) {
         console.error("Error posting:", error);
@@ -72,13 +88,13 @@ const CreatePostPop = ({ onClose }) => {
     // image = "https://www.example.com/image.jpg";
     // console.log("result: ",result)
 
-    useEffect(() => {
-      const content = textBoxValue;
-      const title = headingBoxValue;
-      const category = getCategoryName(categoryValue);
-      // const image = "Hello world!";
-      post(title,content, category);
-    }, []);
+    // useEffect(() => {
+    //   const content = textBoxValue;
+    //   const title = headingBoxValue;
+    //   const category = getCategoryName(categoryValue);
+    //   // const image = "Hello world!";
+    //   post(title,content, category);
+    // }, []);
 
   return (
     <>
@@ -88,11 +104,11 @@ const CreatePostPop = ({ onClose }) => {
           <button
             className={styles.postButton}
             autoFocus
-            onClick={()=>{
-              openPostSuccessPopPopup}}
+            onClick={openPostSuccessPopPopup}
+
           >
             <div className={styles.text}>POST</div>
-            <div className={styles.text}>POST</div>
+            {/* <div className={styles.text}>POST</div> */}
           </button>
           <PostFormSelects
           headingBoxValue={headingBoxValue} 
