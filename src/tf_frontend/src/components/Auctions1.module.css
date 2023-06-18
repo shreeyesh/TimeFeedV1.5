@@ -213,6 +213,13 @@
   background-repeat: no-repeat;
   background-position: top;
 }
+
+.auctionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px; /* adjust as needed */
+}
+
 .formationOfUse {
   position: relative;
   font-weight: 600;
