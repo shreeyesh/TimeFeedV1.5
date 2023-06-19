@@ -492,10 +492,13 @@
   position: relative;
   border-radius: 1px;
   background-color: var(--nft-app-white);
-  width: 100%;
+  /* width: 100%; */
   height: 6452px;
   text-align: left;
   font-size: var(--inter-medium-16-size);
   color: var(--primary-blue);
-  font-family: var(--inter-medium-16);
+  font-family: var(--inter-medium-16);  
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }

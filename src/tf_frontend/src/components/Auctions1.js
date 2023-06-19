@@ -60,7 +60,7 @@ const Auctions1 = ({
             />
           </div>
           <div className={styles.rectangleContainer}>
-            <input className={styles.frameInner} type="checkbox" />
+            <input className={styles.frameInner} type="checkbox" / >
             <img
               className={styles.vuesaxboldheartIcon}
               alt=""

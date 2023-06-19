@@ -1,5 +1,8 @@
 import { useMemo } from "react";
 import styles from "./Header.module.css";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Header = ({
   productIds,
   navbarJustifyContent,
@@ -18,11 +21,17 @@ const Header = ({
     };
   }, [navbarJustifyContent, navbarPosition, navbarTop, navbarLeft]);
 
+  const navigate = useNavigate();
+  const onLogoCLick = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
+
   return (
     <div className={styles.nav} style={navStyle}>
       <nav className={styles.navbar}>
         <div className={styles.timefeedLowResolutionLogoBParent}>
-          <button className={styles.timefeedLowResolutionLogoB} />
+          <button className={styles.timefeedLowResolutionLogoB} onClick={onLogoCLick} />
           <input
             className={styles.frameChild}
             type="text"

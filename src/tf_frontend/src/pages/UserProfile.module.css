@@ -4,6 +4,7 @@
   width: 302px;
   height: 330px;
   object-fit: cover;
+  margin-top: 50px;
 }
 .image56Wrapper {
   display: flex;
