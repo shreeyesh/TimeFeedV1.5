@@ -5,7 +5,9 @@
   line-height: 16px;
 }
 .followingOverlay {
-  position: relative;
+  position: absolute;
+  top: 264px;
+  left: 606px;
   border-radius: var(--br-29xl);
   background-color: var(--color-mediumslateblue);
   width: 230px;

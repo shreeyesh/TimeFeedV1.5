@@ -79,8 +79,6 @@ const CardTime = ({ imageIds, imageIds48x124 }) => {
               src={imageIds48x124}
             />
             <div className={styles.iconlyboldgraphParent}>
-              <img className={styles.iconlyboldgraph} alt="" />
-              <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
               <img
                 className={styles.path33909Icon}
                 alt=""

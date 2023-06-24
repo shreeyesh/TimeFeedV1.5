@@ -28,13 +28,6 @@ const ViewPost = () => {
         <div className={styles.viewPostInner}>
           <div className={styles.frameParent}>
             <Header
-              productIds="/account-circle-black-24dp-2-11.svg"
-              navbarJustifyContent="flex-start"
-              navbarPosition="absolute"
-              navbarTop="146px"
-              navbarLeft="0px"
-              onTradeClick={onTradeClick}
-              openCreatePostPopPopup={openCreatePostPopPopup}
             />
             <div className={styles.desktop1}>
               <div className={styles.frameGroup}>
@@ -129,11 +122,6 @@ const ViewPost = () => {
                             src="/TransperentText1@2x.png"
                           />
                           <div className={styles.iconlyboldgraphParent}>
-                            <img className={styles.iconlyboldgraph} alt="" />
-                            <img
-                              className={styles.vuesaxlinearunlimitedIcon}
-                              alt=""
-                            />
                             <img
                               className={styles.path33909Icon}
                               alt=""

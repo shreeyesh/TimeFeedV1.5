@@ -61,33 +61,23 @@ const AuctionRow = () => {
     }
   };
 
-  // Function to handle upvote
-  const handleUpvote = async (postId) => {
-    try {
-      await canister.upvote(BigInt(postId));
-      console.log("Upvoted post with ID:", postId);
-      fetchPostDetails(postId);
-    } catch (error) {
-      console.error("Error upvoting post:", error);
-    }
-  };
-
-  
-
   const fetchAllPosts = async () => {
     try {
       const promises = [];
-      for (let i = 0; i < postCount; i++) {
+      for (let i = postCount - BigInt(1); i >= 0; i--) {
         promises.push(canister.get_post(BigInt(i)));
       }
       const postsData = await Promise.all(promises);
       const posts = postsData.map((response) => response[0]);
-      setPosts(posts);
+      // Sort the posts in descending order of timer value
+      posts.sort((postA, postB) => (postB.timer > postA.timer) ? 1 : ((postB.timer < postA.timer) ? -1 : 0));
       console.log("All posts:", posts);
+      setPosts(posts);
     } catch (error) {
       console.error("Error fetching post details:", error);
     }
   };
+  
   
   useEffect(() => {
     fetchPostCount();
@@ -95,6 +85,9 @@ const AuctionRow = () => {
   
   useEffect(() => {
     fetchAllPosts();
+    const intervalId = setInterval(fetchAllPosts, 5000); // fetch every 5 seconds
+     // cleanup function
+  return () => clearInterval(intervalId);
   }, [postCount]);  // Add postCount as a dependency
 
   // useEffect(() => {
@@ -107,68 +100,11 @@ const AuctionRow = () => {
   
   return (
     <div className={styles.auctionsParent} >
-      {posts && posts.length > 0 && (
-        <Auctions1
-          postPicture={"/image-49@2x.png"}
-          mutualpfp1={"/image-2912@2x.png"}
-          mutualpfp2={"/image-2913@2x.png"}
-          mutualpfp3={"/image-2914@2x.png"}
-          mutualpfp4={"/image-2915@2x.png"}
-          mutualpfp5={"/image-2916@2x.png"}
-          timerValue={posts[posts.length - 1] ? posts[posts.length - 1].timer.toString() : "100"}
-          heading={posts[posts.length - 1] ? posts[posts.length - 1].title : "Loading..."}
-          description={posts[posts.length - 1] ? posts[posts.length - 1].content : "Loading..."}
-          desc2={posts[posts.length - 1] ? posts[posts.length - 1].desc2 : "Europe led by Germany is needed..."}
-          gainTime={"1:28"}
-        />
-      )}
-    
-     <Auctions1
-  postPicture={"/image-48@2x.png"}
-  mutualpfp1={ "/image-2912@2x.png"}
-  mutualpfp2={ "/image-2913@2x.png"}
-  mutualpfp3={ "/image-2914@2x.png"}
-  mutualpfp4={ "/image-2915@2x.png"}
-  mutualpfp5={ "/image-2916@2x.png"}
-  // timerValue={ timer.toString() }
-  timerValue={ post ? timer.toString() : "100"}
-  heading={"Delicious Food Recipes:"}
-  description={"Delicious Food Recipes:"}
-  desc2={ "Europe led by Germany is needed..."}
-  gainTime={"1:28"}
-/>
-     <Auctions1
-  postPicture={"/image-47@2x.png"}
-  mutualpfp1={ "/image-2912@2x.png"}
-  mutualpfp2={ "/image-2913@2x.png"}
-  mutualpfp3={ "/image-2914@2x.png"}
-  mutualpfp4={ "/image-2915@2x.png"}
-  mutualpfp5={ "/image-2916@2x.png"}
-  // timerValue={ timer.toString() }
-  timerValue={ post ? timer.toString() : "100"}
-  heading={"Stay motivated, push your limits"}
-  description={"Stay motivated, push your limits"}
-  gainTime={"1:28"}
-/>
-     <Auctions1
-  postPicture={"/image-46@2x.png"}
-  mutualpfp1={ "/image-2912@2x.png"}
-  mutualpfp2={ "/image-2913@2x.png"}
-  mutualpfp3={ "/image-2914@2x.png"}
-  mutualpfp4={ "/image-2915@2x.png"}
-  mutualpfp5={ "/image-2916@2x.png"}
-  // timerValue={ timer.toString() }
-  timerValue={ post ? timer.toString() : "100"}
-  heading={"Formation of use"}
-  description={"Formation of use"}
-  desc2={ "Europe led by Germany is needed..."}
-  gainTime={"1:28"}
-/>
-    
 {/*  All posts mapping */}
-{/* {posts.map((post, index) => (
+{posts.map((post, index) => (
   <Auctions1
-      key={index}
+      key={post.id}
+      postId={post ? post.id : null} // Pass postId as prop
         postPicture="/image-45@2x.png"
         mutualpfp1="/image-2912@2x.png"
         mutualpfp2="/image-2913@2x.png"
@@ -181,7 +117,7 @@ const AuctionRow = () => {
         desc2={post ? post.desc2 : "Europe led by Germany is needed..."}
         gainTime={"1:28"}
       />
-      ))} */}
+      ))} 
     </div>
   );
 };

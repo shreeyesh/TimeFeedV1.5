@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import PostsContainer from "../components/PostsContainer";
 import FOLLOWINGOVERLAY from "../components/FOLLOWINGOVERLAY";
 import styles from "./UserProfile.module.css";
+import Header1 from "../components/Header1";
 const UserProfile = () => {
   const navigate = useNavigate();
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
@@ -113,6 +114,7 @@ const UserProfile = () => {
             <p className={styles.carpediemvirgo}>&nbsp;</p>
             <p className={styles.carpediemvirgo}>you’re thinking.</p>
           </div>
+          {isFOLLOWINGOVERLAYOpen == false && (
           <button
             className={styles.followButton}
             autoFocus
@@ -120,6 +122,16 @@ const UserProfile = () => {
           >
             <div className={styles.text}>FOLLOW</div>
           </button>
+            )}
+          {isFOLLOWINGOVERLAYOpen == true && (
+          <button
+            className={styles.followButton}
+            autoFocus
+            onClick={closeFOLLOWINGOVERLAY}
+          >
+            <div className={styles.text}>FOLLOWING</div>
+          </button>
+            )}
           <div className={styles.postfilter}>
             <button className={styles.recent}>
               <div className={styles.recent1}>RECENT</div>
@@ -201,15 +213,6 @@ const UserProfile = () => {
           onOutsideClick={closeCreatePostPopPopup}
         >
           <CreatePostPop onClose={closeCreatePostPopPopup} />
-        </PortalPopup>
-      )}
-      {isFOLLOWINGOVERLAYOpen && (
-        <PortalPopup
-          overlayColor="rgba(113, 113, 113, 0.3)"
-          placement="Centered"
-          onOutsideClick={closeFOLLOWINGOVERLAY}
-        >
-          <FOLLOWINGOVERLAY onClose={closeFOLLOWINGOVERLAY} />
         </PortalPopup>
       )}
     </>

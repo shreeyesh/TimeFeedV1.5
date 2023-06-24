@@ -79,8 +79,6 @@ const I5 = () => {
               src="/TransperentText6@2x.png"
             />
             <div className={styles.iconlyboldgraphParent}>
-              <img className={styles.iconlyboldgraph} alt="" />
-              <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
               <img
                 className={styles.path33909Icon}
                 alt=""

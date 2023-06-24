@@ -97,8 +97,7 @@ const FollowContainer = ({
                 src={smallImageIds}
               />
               <div className={styles.iconlyboldgraphParent}>
-                <img className={styles.iconlyboldgraph} alt="" />
-                <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
+   
                 <img
                   className={styles.path33909Icon}
                   alt=""
@@ -219,8 +218,6 @@ const FollowContainer = ({
                   src={smallImageIds2}
                 />
                 <div className={styles.iconlyboldgraphGroup}>
-                  <img className={styles.iconlyboldgraph} alt="" />
-                  <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
                   <img
                     className={styles.path33909Icon}
                     alt=""
@@ -339,8 +336,7 @@ const FollowContainer = ({
                 src={extraSmallImageIds}
               />
               <div className={styles.iconlyboldgraphParent}>
-                <img className={styles.iconlyboldgraph} alt="" />
-                <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
+   
                 <img
                   className={styles.path33909Icon}
                   alt=""
@@ -465,8 +461,6 @@ const FollowContainer = ({
                   src={smallImageIds3}
                 />
                 <div className={styles.iconlyboldgraphGroup}>
-                  <img className={styles.iconlyboldgraph} alt="" />
-                  <img className={styles.vuesaxlinearunlimitedIcon} alt="" />
                   <img
                     className={styles.path33909Icon}
                     alt=""

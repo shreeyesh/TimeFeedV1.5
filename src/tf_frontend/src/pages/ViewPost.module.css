@@ -374,6 +374,7 @@
   height: 48px;
   object-fit: cover;
   appearance: none;
+  margin-bottom: 85px;
 }
 .frameInner:checked {
   border: 1px solid var(--color-black);
@@ -491,6 +492,8 @@
   width: 124px;
   height: 48px;
   object-fit: cover;
+  margin-bottom: 80px;
+
 }
 .frameChild2 {
   width: 95px;
@@ -525,7 +528,7 @@
   position: absolute;
   height: 7.27%;
   width: 7.95%;
-  top: 79.85%;
+  top: 285.5px;
   right: 37.42%;
   bottom: 12.88%;
   left: 54.64%;
@@ -535,7 +538,7 @@
 }
 .profile5 {
   position: absolute;
-  top: 264.5px;
+  top: 285.5px;
   left: 193px;
   letter-spacing: 0.01em;
   line-height: 22px;

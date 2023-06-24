@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import OpinionExplorerContainer from "../components/OpinionExplorerContainer";
 import Header1 from "../components/Header1";
+import Header from "../components/Header";
 import HallOfFameContainer from "../components/HallOfFameContainer";
 import FeaturedPostsContainer from "../components/FeaturedPostsContainer";
 import TrendingPostsSection from "../components/TrendingPostsSection";
@@ -208,7 +209,7 @@ const HomePage = () => {
           </div>
           <OpinionExplorerContainer />
           <div className={styles.fading} />
-          <Header1 />
+          <Header />
           <img
             className={styles.timefeedLowResolutionLogoBIcon}
             alt=""

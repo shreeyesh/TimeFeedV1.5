@@ -65,6 +65,13 @@
   overflow: hidden;
   flex-shrink: 0;
 }
+.logout {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
 .icon {
   display: flex;
   flex-direction: row;

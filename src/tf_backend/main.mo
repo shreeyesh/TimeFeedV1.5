@@ -136,23 +136,28 @@ public shared func get_downvotes(post_id: Nat) : async Nat {
 //   // every time a post is downvoted, timer decreases by 1
 //   // if timer reaches 0, post is deleted
 private func adjust_timer(post_id: Nat, adjustment: Int) {
-  switch (posts.get(post_id)) {
-    case null { /* The post with provided id doesn't exist. Do nothing. */ };
-    case (?post) {
-      // The post exists. Adjust the timer.
-      let updatedPost : Post = {
-        id = post.id;
-        content = post.content;
-        title = post.title;
-        creator = post.creator;
-        likes = post.likes;
-        timer = post.timer + adjustment;
-        dislikes = post.dislikes;
-      };
-      posts.put(post_id, updatedPost);
+    switch (posts.get(post_id)) {
+        case (null) { /* The post with provided id doesn't exist. Do nothing. */ };
+        case (?post) {
+            // The post exists. Adjust the timer.
+            var newTimer : Int = post.timer + adjustment;
+            if (newTimer < 0) {
+                newTimer := 0;
+            };
+            let updatedPost : Post = {
+                id = post.id;
+                content = post.content;
+                title = post.title;
+                creator = post.creator;
+                likes = post.likes;
+                timer = newTimer;
+                dislikes = post.dislikes;
+            };
+            posts.put(post_id, updatedPost);
+        };
     };
-  };
 };
+
 
 // Get timer of a post
 public shared func get_timer(post_id: Nat) : async Int {
@@ -166,6 +171,43 @@ private func delete_post(post_id: Nat) : ?Post {
   let removedPost = posts.remove(post_id);
   return removedPost;
 };
+
+// Calculate rankings based on timeleft
+// public shared({caller}) func calculate_rankings() : async () {
+//   let totalPosts = posts.size();
+//   var newRankings : HashMap.HashMap<Nat, Int> = HashMap.HashMap<Nat, Int>(0, Int.equal, Int.hash);
+//   let keys =  posts.keys();
+//   for (postId in keys) {
+//     let post =  posts.get(postId);
+//     switch(post) {
+//       case null { };
+//       case (?p) {
+//         newRankings.put(postId, p.timer);
+//       };
+//     };
+//   };
+
+//   let sortedRankings = Array.sort<(Nat, Int)>(newRankings.entries().toArray(), func(a, b) {
+//     let (_, valA) = a;
+//     let (_, valB) = b;
+//     return valA > valB;
+//   });
+  
+//   let sortedRankingsFinal = Array.map<(Nat, Int), Nat>(sortedRankings, func(entry) {
+//     let (key, _) = entry;
+//     return key;
+//   });
+  
+//   rankings := HashMap.fromIter<Nat, Nat>(Array.map<Nat, HashMap.Entry<Nat, Nat>>(sortedRankingsFinal, func(key) {
+//     return (key, newRankings.getOrDefault(key, 0));
+//   }), 0, Nat.equal, Nat.hash);
+// };
+
+// Function to get all posts
+// public shared func get_all_posts() : async Array<Post> {
+//   let allPosts = posts.values();
+//   return allPosts;
+// };
 
 // public shared({caller}) func timeOut(post_id: Nat) : async ?Post {
 //   switch (await posts.get(post_id)) {
@@ -271,7 +313,7 @@ private func delete_post(post_id: Nat) : ?Post {
 //       case null { };
 //       case (?p) {
 //         let ldr = LDR(p.likes, p.dislikes);
-//             // sort all the ldr which has ldr closer to 1.5 is ranked higher        
+//             // sort the ldr which has ldr closer to 1.5 is ranked higher        
 //                let ldrDifference = Nat.abs(ldr - 1_500_000);
 //         newRankings.put(postId, ldrDifference);
 //       };

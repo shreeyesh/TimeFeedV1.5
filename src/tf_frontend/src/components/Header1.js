@@ -8,9 +8,17 @@ const Header1 = () => {
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
 
   const onTradeClick = useCallback(() => {
-    navigate("/sectionhomepage");
+    navigate("/");
   }, [navigate]);
-
+  
+  const onExploreClick = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+  
+  const onEarnClick = useCallback(() => {
+    navigate("/view-post");
+  }, [navigate]);
+  
   const openCreatePostPopPopup = useCallback(() => {
     setCreatePostPopPopupOpen(true);
   }, []);
@@ -37,8 +45,8 @@ const Header1 = () => {
             <img className={styles.darkModeChild} alt="" src="/ellipse-1.svg" />
           </button>
           <div className={styles.menus}>
-            <button className={styles.explore}>Explore</button>
-            <button className={styles.explore}>Earn</button>
+            <button className={styles.explore} onClick={onExploreClick}>Explore</button>
+            <button className={styles.explore} onClick={onEarnClick}>Earn</button>
             <button className={styles.explore} onClick={onTradeClick}>
               Trade
             </button>
