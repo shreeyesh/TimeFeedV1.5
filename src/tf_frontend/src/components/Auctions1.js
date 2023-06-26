@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Auctions1.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor, HttpAgent } from "@dfinity/agent";
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 const Auctions1 = ({
   postPicture,
   mutualpfp1,
@@ -14,7 +14,7 @@ const Auctions1 = ({
   heading,
   description,
   desc2,
-  gainTime,
+  category,
   postId,
 }) => {
 
@@ -26,7 +26,6 @@ const Auctions1 = ({
     agent,
     canisterId,
   });
-  console.log("PostID:", postId);
 
    // New state variable for voting status
    const [voteStatus, setVoteStatus] = useState(null); // null - no vote, 1 - upvoted, -1 - downvoted
@@ -72,12 +71,18 @@ const Auctions1 = ({
     }
   };
 
+  const navigate = useNavigate();
+const onAuctionClick = useCallback(() => {
+  console.log("Auction clicked");
+  navigate("/view-post");
+}, [navigate]);
+  console.log("cat:", category);
 
 
   return (
-    <div className={styles.auctions}>
-      <div className={styles.auctions1}>
-        <img className={styles.image49Icon} alt="" src={postPicture} />
+    <div className={styles.auctions} >
+      <div className={styles.auctions1} >
+        <img className={styles.image49Icon} alt="" src={postPicture} onClick={onAuctionClick}  />
         <div className={styles.profileParent}>
           <div className={styles.profile}>
             <img className={styles.image29Icon} alt="" src={mutualpfp1} />
@@ -137,7 +142,8 @@ const Auctions1 = ({
             <img
               className={styles.image29Icon5}
               alt=""
-              src="/image-2917@2x.png"
+              src="/image-2916@2x.png"
+              // src/tf_frontend/public/timefeedlowresolutionlogoblackonwhitebackground-2@2x.png
             />
           </div>
           <div className={styles.frameWrapper}>
@@ -150,8 +156,8 @@ const Auctions1 = ({
           </div>
         </div>
         <div className={styles.timeGainedParent}>
-          <div className={styles.timeGained}>Time Gained</div>
-          <div className={styles.div1}>{gainTime}</div>
+          <div className={styles.timeGained}>Category</div>
+          <div className={styles.div1}>{category}</div>
         </div>
       </div>
     </div>

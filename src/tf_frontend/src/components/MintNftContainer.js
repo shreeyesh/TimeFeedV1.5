@@ -59,16 +59,7 @@ const MintNftContainer = () => {
         {/* <div className={styles.addimage} {...getRootProps()} > */}
         {/* <input {...getInputProps()} /> */}
           {/* <input className={styles.button} type="file" /> */}
-          <div className={styles.or}>
-            <div className={styles.orParent}>
-              <div className={styles.or1}>Or</div>
-              <img
-                className={styles.groupChild}
-                alt=""
-                src="/group-481541.svg"
-              />
-            </div>
-          </div>
+          
           <div className={styles.dragYourDocuments}>
             Drag your documents, photos, or videos here to start uploading.
           </div>

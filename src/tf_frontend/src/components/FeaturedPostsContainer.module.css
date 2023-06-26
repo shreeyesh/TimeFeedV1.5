@@ -1,13 +1,17 @@
 .featuredPosts {
-  position: relative;
+  /* position: absolute; */
+  margin-top: 22px;
   font-weight: 600;
-  padding-right: 90px;
+  padding-right: 10px;
+  cursor: pointer;
 }
 .featuredPostsWrapper {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  width: 120px;
+  height: 20px;
 }
 .create {
   position: relative;
@@ -23,6 +27,7 @@
   height: 20px;
   flex-shrink: 0;
 }
+
 .button,
 .frameGroup {
   display: flex;
@@ -37,6 +42,24 @@
   box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
   flex-direction: column;
   align-items: flex-start;
+  left: 1200px;
+  position: relative;
+}
+.seeAll {
+  position: absolute;
+    padding: var(--padding-base) var(--padding-5xl);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  font-family: var(--inter-medium-16);
+  color: var(--primary-blue);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 20px;
+  flex-shrink: 0;
+  left: 1200px;
 }
 .frameGroup {
   flex-direction: row;
@@ -389,6 +412,14 @@
   left: 44.95%;
   object-fit: cover;
 }
+.recentPost {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 504px;
+  flex-shrink: 0;
+  padding-left: 143px;
+}
 .arrowRightIcon,
 .refreshIcon {
   height: 100%;
@@ -456,4 +487,5 @@
   font-size: var(--font-size-13xl);
   color: var(--text-black);
   font-family: var(--inter-medium-16);
+  /* overflow-x: scroll; */
 }

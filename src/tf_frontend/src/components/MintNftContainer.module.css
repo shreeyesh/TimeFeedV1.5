@@ -92,13 +92,13 @@
   height: 26px;
 }
 .or {
-  top: 109px;
-  left: 54px;
+  top: 140px;
+  left: 60px;
 }
 .dragYourDocuments {
   position: absolute;
-  top: 58.99px;
-  left: 0;
+  top: 140px;
+  left: 60px;
   color: var(--color-slategray-100);
   display: inline-block;
   width: 250.28px;
@@ -106,8 +106,8 @@
 }
 .folderIcon {
   position: absolute;
-  top: 0;
-  left: 92.93px;
+  top: 47px;
+  left: 162.93px;
   width: 48.1px;
   height: 48.54px;
   object-fit: cover;

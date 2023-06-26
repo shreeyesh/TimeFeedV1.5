@@ -19,6 +19,7 @@ actor class TimeFeedImpl() {
   id: Nat;
   content: Text;
   title: Text;
+  category: Text;
   creator: Principal;
   timer : Int;
   likes: Nat;
@@ -47,6 +48,7 @@ actor class TimeFeedImpl() {
       id = post_id;
       content = content;
       title = title;
+      category = category;
       creator = caller;
       dislikes = 10;
       // image_url = image_url;
@@ -79,6 +81,7 @@ public shared({ caller }) func upvote(post_id: Nat) : async () {
         id = post.id;
         content = post.content;
         title = post.title;
+        category = post.category;
         creator = post.creator;
         timer = post.timer;
         likes = post.likes + 1;
@@ -102,6 +105,7 @@ public shared({ caller }) func downvote(post_id: Nat) : async () {
         id = post.id;
         content = post.content;
         title = post.title;
+        category = post.category;
         creator = post.creator;
         timer = post.timer;
         likes = post.likes ;
@@ -148,6 +152,7 @@ private func adjust_timer(post_id: Nat, adjustment: Int) {
                 id = post.id;
                 content = post.content;
                 title = post.title;
+                category = post.category;
                 creator = post.creator;
                 likes = post.likes;
                 timer = newTimer;

@@ -1,8 +1,12 @@
-import { Menu, Button, MenuButton } from "@chakra-ui/react";
+import { Menu, Button, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import RankContainer from "./RankContainer";
 import styles from "./HallOfFameContainer.module.css";
+import { useState } from "react";
+
 const HallOfFameContainer = () => {
+  const [selectedCategory, setSelectedCategory] = useState("Categories");
+
   return (
     <div className={styles.desktop2}>
       <div className={styles.frameParent}>
@@ -16,8 +20,17 @@ const HallOfFameContainer = () => {
                   rightIcon={<ChevronDownIcon />}
                   colorScheme="nftwhite"
                 >
-                  Categories
+                  {selectedCategory}
                 </MenuButton>
+                <MenuList colorScheme="black">
+                  <MenuItem onClick={() =>setSelectedCategory("Art")}>Art</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Business")}>Business</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Comedy")}>Comedy</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Politics")}>Politics</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Movies")}>Movies</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Songs")}>Songs</MenuItem>
+                  <MenuItem onClick={() =>setSelectedCategory("Travel")}>Travel</MenuItem>
+              </MenuList>
               </Menu>
               <div className={styles.dayfilter}>
                 <button className={styles.daily}>

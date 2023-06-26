@@ -8,6 +8,7 @@ export interface Post {
   'creator' : Principal,
   'content' : string,
   'likes' : bigint,
+  'category' : string,
   'dislikes' : bigint,
 }
 export interface TimeFeedImpl {

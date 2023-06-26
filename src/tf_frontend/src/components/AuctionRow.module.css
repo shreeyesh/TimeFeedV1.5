@@ -18,6 +18,15 @@
   justify-content: flex-start;
   gap: var(--gap-xs);
 }
+.toggle {
+  position: relative;
+  width: 15px;
+  height: 70px;
+  color: aqua;
+  padding-right: 18px;
+  font-weight: 400;
+}
+
 .description {
   position: relative;
   line-height: 16px;

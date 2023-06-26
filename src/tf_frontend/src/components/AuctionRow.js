@@ -1,17 +1,13 @@
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Auctions1 from "./Auctions1";
-// import AuctionContainer from "./AuctionContainer";
-// import Auctions from "./Auctions";
 import styles from "./AuctionRow.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
-// import { canisterId } from "@dfinity/candid";
 import { Actor,HttpAgent } from "@dfinity/agent";
 
-const AuctionRow = () => {
-  const [content, setContent] = useState("");
+const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
   const [post, setPost] = useState(null); // Initialize post as null
   const [posts, setPosts] = useState(Array(5).fill(null)); // Initialize an array of 11 null posts
+  const [recentPosts, setRecentPosts] = useState(Array(5).fill(null)); // Initialize an array of 11 null posts
   const [postId, setPostId] = useState(0);
   const [postCount, setPostCount] = useState(0);
   const [timer, setTimer] = useState(0);
@@ -27,6 +23,13 @@ const AuctionRow = () => {
     canisterId,
   });
 
+  const [showRecent, setShowRecent] = useState(false);
+
+    const handleButtonClick = () => {
+      console.log("Toggling posts");
+      setShowRecent(!showRecent);
+      toggleRecentPosts(); // Instead of calling setShowRecent(!showRecent);
+    }
   // Function to get total posts count
   const fetchPostCount = async () => {
     try {
@@ -39,27 +42,6 @@ const AuctionRow = () => {
       return {}; // Default value in case of an error
     }
   };
-  
-  const fetchPostDetails = async (postId) => {
-    try {
-      const response = await canister.get_post(BigInt(postId));
-      const post = response[0]; // get the first item of the response
-      console.log("Post details:", post);
-      setPost(post); // Update the post state
-      let timer = await post.timer;
-      console.log("Post timer:", timer);
-      setTimer(timer);
-      let content = await post.content;
-      console.log("content:", content);
-      setContent(content);
-      console.log("title:", await post.title);
-      console.log("id:", await post.id);
-    } catch (error) {
-      console.error("Error fetching post details:", error);
-      return {}; // Default value in case of an error
-
-    }
-  };
 
   const fetchAllPosts = async () => {
     try {
@@ -68,15 +50,32 @@ const AuctionRow = () => {
         promises.push(canister.get_post(BigInt(i)));
       }
       const postsData = await Promise.all(promises);
-      const posts = postsData.map((response) => response[0]);
-      // Sort the posts in descending order of timer value
-      posts.sort((postA, postB) => (postB.timer > postA.timer) ? 1 : ((postB.timer < postA.timer) ? -1 : 0));
-      console.log("All posts:", posts);
-      setPosts(posts);
+
+      // Add the pictureId here:
+      const allPosts = postsData.map((response, index) => {
+        const post = response[0];
+        return {...post, pictureId: index};
+      });
+
+      // const allPosts = postsData.map((response) => response[0]);
+
+      // Sort posts by id in descending order and set recentPosts
+      const sortedByIdPosts = [...allPosts];
+      sortedByIdPosts.sort((postA, postB) => (postB.id > postA.id) ? 1 : ((postB.id < postA.id) ? -1 : 0));
+      setRecentPosts(sortedByIdPosts);
+      console.log("Recent posts:", sortedByIdPosts);
+
+      // Sort the posts in descending order of timer value and set posts
+      const sortedByTimerPosts = [...allPosts];
+      sortedByTimerPosts.sort((postA, postB) => (postB.timer > postA.timer) ? 1 : ((postB.timer < postA.timer) ? -1 : 0));
+      setPosts(sortedByTimerPosts);
+      console.log("All posts:", sortedByTimerPosts);
     } catch (error) {
       console.error("Error fetching post details:", error);
     }
   };
+
+  
   
   
   useEffect(() => {
@@ -90,36 +89,51 @@ const AuctionRow = () => {
   return () => clearInterval(intervalId);
   }, [postCount]);  // Add postCount as a dependency
 
-  // useEffect(() => {
-  //   fetchPostCount().then(() => {
-  //   const postId =BigInt(postCount)-BigInt(1) // Replace with the desired post ID
-  //   // const postId = 0; // Replace with the desired post ID
-  //   fetchPostDetails(postId);
-  //   });
-  // }, []);
-  
   return (
     <div className={styles.auctionsParent} >
-{/*  All posts mapping */}
-{posts.map((post, index) => (
-  <Auctions1
-      key={post.id}
-      postId={post ? post.id : null} // Pass postId as prop
-        postPicture="/image-45@2x.png"
-        mutualpfp1="/image-2912@2x.png"
-        mutualpfp2="/image-2913@2x.png"
-        mutualpfp3="/image-2914@2x.png"
-        mutualpfp4="/image-2915@2x.png"
-        mutualpfp5="/image-2916@2x.png"
-        timerValue={post ? post.timer.toString() : "100"}
-        heading={post ? post.title : "Loading..."}
-        description={post ? post.content : "Loading..."}
-        desc2={post ? post.desc2 : "Europe led by Germany is needed..."}
-        gainTime={"1:28"}
-      />
-      ))} 
+      <button className={styles.toggle} onClick={handleButtonClick}> {showRecent ? 'TOP' : 'RECENT'}</button>
+            {showRecent ? 
+                recentPosts.map((post, index) => (
+                    <Auctions1         
+                        key={post.id}
+                        postId={post ? post.id : null} // Pass postId as prop
+                        postPicture={`/image-${45 + post.pictureId}@2x.png`} 
+                        mutualpfp1="/image-2912@2x.png"
+                        mutualpfp2="/image-2913@2x.png"
+                        mutualpfp3="/image-2914@2x.png"
+                        mutualpfp4="/image-2915@2x.png"
+                        mutualpfp5="/image-2916@2x.png"
+                        timerValue={post.timer.toString()}
+                        heading={post.title}
+                        description={post.content}
+                        // desc2={post.desc2 || "Europe led by Germany is needed..."}
+                        category={post.category}
+                    />
+                )) :
+    // {/*  All posts mapping */}
+    posts.map((post, index) => (
+      post !== null ? (
+        <Auctions1
+          key={post.id}
+          postId={post.id}
+          postPicture={`/image-${45 + post.pictureId}@2x.png`}
+          mutualpfp1="/image-2912@2x.png"
+          mutualpfp2="/image-2913@2x.png"
+          mutualpfp3="/image-2914@2x.png"
+          mutualpfp4="/image-2915@2x.png"
+          mutualpfp5="/image-2916@2x.png"
+          timerValue={post.timer.toString()}
+          heading={post.title}
+          description={post.content}
+          // desc2={post.desc2 || "Europe led by Germany is needed..."}
+          category={post.category}
+          />
+      ) : null
+    ))
+    }
     </div>
   );
+
 };
 
 export default AuctionRow;

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback,useState } from "react";
 import AuctionRow from "./AuctionRow";
 import AuctionContainer from "./AuctionContainer";
 import FormationContainer from "./FormationContainer";
@@ -14,19 +14,25 @@ const FeaturedPostsContainer = () => {
     }
   }, []);
 
+  const [showRecent, setShowRecent] = useState(false);
+
+  const handleButtonClick = useCallback(() => {
+    setShowRecent(prevShowRecent => {
+        console.log("Toggled  :", !prevShowRecent);
+        return !prevShowRecent;
+    });
+}, []);
+
   return (
     <div className={styles.desktop1}>
       <div className={styles.frameParent}>
         <div className={styles.frameGroup} data-scroll-to="frameContainer1">
-          <div className={styles.featuredPostsWrapper}>
-            <div className={styles.featuredPosts}>Featured Posts</div>
+            <button className={styles.seeAll} onClick={onButton2Click}>See All</button>
+          <div className={styles.button} >
           </div>
-          <button className={styles.button} onClick={onButton2Click}>
-            <div className={styles.create}>See All</div>
-          </button>
         </div>
         <div className={styles.frameContainer}>
-          <AuctionRow />
+        <AuctionRow handleButtonClick={handleButtonClick} />
           <div className={styles.auctionsParent}>
             <div className={styles.auctions}>
               <AuctionContainer
@@ -245,8 +251,8 @@ const FeaturedPostsContainer = () => {
             />
           </div>
         </div>
-        <img className={styles.vuesaxlineararrowLeftIcon} alt="" />
       </div>
+            <button className={styles.featuredPosts}>Featured Posts</button>
       <button className={styles.vuesaxlineararrowRight}>
         <div className={styles.arrowRight}>
           <img className={styles.vectorIcon} alt="" src="/vector@2x.png" />

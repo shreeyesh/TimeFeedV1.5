@@ -6,6 +6,7 @@ export const idlFactory = ({ IDL }) => {
     'creator' : IDL.Principal,
     'content' : IDL.Text,
     'likes' : IDL.Nat,
+    'category' : IDL.Text,
     'dislikes' : IDL.Nat,
   });
   const TimeFeedImpl = IDL.Service({
