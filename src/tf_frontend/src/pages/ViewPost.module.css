@@ -577,6 +577,8 @@
   font-size: var(--inter-medium-16-size);
 }
 .span {
+  /* position: absolute;
+  left: 20px; */
   font-weight: 500;
 }
 .description1 {
@@ -812,6 +814,41 @@
   position: relative;
   width: 20px;
   height: 17.8px;
+  
+}
+.likes {
+  position: absolute;
+  width: 30px;
+  height: 17.8px;
+  left: 73.3%;
+  top: 35%;
+}
+.dislikes {
+  position: absolute;
+  width: 30px;
+  height: 17.8px;
+  left: -8.7%;
+  top: 100%;
+}
+.component19 {
+  position: absolute;
+  top: 219px;
+  left: 519px;
+  border-radius: var(--br-8xs);
+  width: 643px;
+  height: 891px;
+  overflow: hidden;
+  padding: 20px; /* Adds padding inside the component for better appearance */
+  display: flex;
+  flex-direction: column; /* Ensures the comments are vertically stacked */
+}
+.commentWrapper,
+.replyWrapper {
+margin-bottom: 20px; /* Add space between comments */
+}
+
+.replyWrapper {
+margin-left: 40px; /* Indent replies */
 }
 .vectorIcon2:hover {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -1077,6 +1114,7 @@
   position: relative;
   line-height: 150%;
   color: var(--blackalpha-500);
+  width: max-content;
 }
 .property1variant4 {
   position: absolute;
@@ -1249,7 +1287,7 @@
   top: 747.69px;
   padding: 0 var(--padding-31xl);
 }
-.component19,
+/* .component19, */
 .property1variant13 {
   position: absolute;
   top: 813.85px;
@@ -1257,14 +1295,14 @@
   width: 480px;
   height: 46.15px;
 }
-.component19 {
+/* .component19 {
   top: 219px;
   left: 519px;
   border-radius: var(--br-8xs);
   width: 643px;
   height: 891px;
   overflow: hidden;
-}
+} */
 .viewMore {
   position: absolute;
   top: 1098px;
@@ -1404,6 +1442,8 @@
 }
 .buyTime {
   left: 202px;
+  cursor: pointer;
+
 }
 .rectangleParent2 {
   position: absolute;

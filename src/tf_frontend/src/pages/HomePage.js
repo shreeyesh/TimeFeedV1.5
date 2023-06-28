@@ -1,6 +1,5 @@
-import { useCallback } from "react";
+import { useState,useCallback } from "react";
 import OpinionExplorerContainer from "../components/OpinionExplorerContainer";
-import Header1 from "../components/Header1";
 import Header from "../components/Header";
 import HallOfFameContainer from "../components/HallOfFameContainer";
 import FeaturedPostsContainer from "../components/FeaturedPostsContainer";
@@ -10,12 +9,15 @@ import WithdrawSection from "../components/WithdrawSection";
 import MobileCTAContainer from "../components/MobileCTAContainer";
 import styles from "./HomePage.module.css";
 const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const onFrameButtonClick = useCallback(() => {
     const anchor = document.querySelector("[data-scroll-to='navbar']");
     if (anchor) {
       anchor.scrollIntoView({ block: "start", behavior: "smooth" });
     }
   }, []);
+
+  console.log("HomePage.js: HomePage: searchTerm: ", searchTerm);
 
   return (
     <div className={styles.homepage}>
@@ -209,17 +211,8 @@ const HomePage = () => {
           </div>
           <OpinionExplorerContainer />
           <div className={styles.fading} />
-          <Header />
-          <img
-            className={styles.timefeedLowResolutionLogoBIcon}
-            alt=""
-            src="/timefeedlowresolutionlogoblackonwhitebackground-2@2x.png"
-          />
-          <img
-            className={styles.notificationBingIcon}
-            alt=""
-            src="/notificationbing.svg"
-          />
+          <Header setSearchTerm={setSearchTerm} />
+         
         </div>
       </div>
       <div className={styles.logoClouds1Parent} data-scroll-to="frameContainer">
@@ -254,7 +247,7 @@ const HomePage = () => {
         </div>
         <HallOfFameContainer />
         <div className={styles.fading1} />
-        <FeaturedPostsContainer />
+        <FeaturedPostsContainer searchTerm={searchTerm} />
       </div>
       <div className={styles.desktop3}>
         <div className={styles.frameParent}>
@@ -272,18 +265,6 @@ const HomePage = () => {
       <MobileCTAContainer />
       <div className={styles.vuesaxlineararrowRight} />
       <div className={styles.vuesaxlinearrefresh} />
-      <div className={styles.timeGained}>Time Gained</div>
-      <div className={styles.div}>1:28</div>
-      <div className={styles.timeGained1}>Time Gained</div>
-      <div className={styles.div1}>1:28</div>
-      <div className={styles.timeGained2}>Time Gained</div>
-      <div className={styles.div2}>1:28</div>
-      <div className={styles.timeGained3}>Time Gained</div>
-      <div className={styles.div3}>1:28</div>
-      <div className={styles.timeGained4}>Time Gained</div>
-      <div className={styles.div4}>1:28</div>
-      <div className={styles.timeGained5}>Time Gained</div>
-      <div className={styles.div5}>1:28</div>
       <input
         className={styles.withdrawfield}
         type="number"

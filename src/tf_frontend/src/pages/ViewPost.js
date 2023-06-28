@@ -1,17 +1,64 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import CreatePostPop from "../components/CreatePostPop";
 import PortalPopup from "../components/PortalPopup";
+import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
+import { Actor,HttpAgent } from "@dfinity/agent";
 import Header from "../components/Header";
+import Auctions1 from "../components/Auctions1";
 import USEFormContainer from "../components/USEFormContainer";
 import styles from "./ViewPost.module.css";
+import UserCard from "../components/UserCard";
+import Comments from "../components/comments";
+
 const ViewPost = () => {
   const navigate = useNavigate();
+  const [post, setPost] = useState(null); // Initialize post as null
+  const [heading, setHeading] = useState("");
+  const [description, setDescription] = useState("");
+  const [timer, setTimer] = useState("");
+  const [category, setCategory] = useState("");
+
+  let { postId, pictureId } = useParams();
+console.log("postId : ",postId);
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
 
+  const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  // const agent = new HttpAgent({ host: "https://ic0.app" });
+  const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  agent.fetchRootKey();
+  const canister = Actor.createActor(canisterIdlFactory, {
+    agent,
+    canisterId,
+  });
+
+  // Function to fetch post details
+  const fetchPostDetails = async (postId) => {
+    try {
+      // const postId = 0;
+      const response = await canister.get_post(BigInt(postId));
+      const post = response[0]
+      console.log("Post:", post);
+      if (post) {
+        setHeading(post.title);
+        setDescription(post.content);
+        setCategory(post.category);
+        setTimer(post.timer);
+        setPost(post);
+      }
+      // setPost(post);
+    } catch (error) {
+      console.error("Error fetching post:", error);
+    }
+  };
+
+  useEffect (() => {
+    fetchPostDetails(postId);
+  }, [postId]);
+
   const onTradeClick = useCallback(() => {
-    navigate("/sectionhomepage");
+    navigate("/");
   }, [navigate]);
 
   const openCreatePostPopPopup = useCallback(() => {
@@ -22,310 +69,39 @@ const ViewPost = () => {
     setCreatePostPopPopupOpen(false);
   }, []);
 
+  
+
   return (
     <>
       <div className={styles.viewPost}>
         <div className={styles.viewPostInner}>
           <div className={styles.frameParent}>
-            <Header
-            />
             <div className={styles.desktop1}>
               <div className={styles.frameGroup}>
                 <div />
                 <div className={styles.frameWrapper}>
                   <div className={styles.auctionsWrapper}>
-                    <div className={styles.auctions}>
-                      <div className={styles.auctions1}>
-                        <img
-                          className={styles.image50Icon}
-                          alt=""
-                          src="/image-49@2x.png"
-                        />
-                        <div className={styles.profileParent}>
-                          <div className={styles.profile}>
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-2912@2x.png"
-                            />
-                          </div>
-                          <div className={styles.profile1}>
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-2925@2x.png"
-                            />
-                          </div>
-                          <div className={styles.profile2}>
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-2926@2x.png"
-                            />
-                          </div>
-                          <div className={styles.profile3}>
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-2915@2x.png"
-                            />
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-411@2x.png"
-                            />
-                          </div>
-                          <div className={styles.profile4}>
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-2916@2x.png"
-                            />
-                            <img
-                              className={styles.image29Icon}
-                              alt=""
-                              src="/image-412@2x.png"
-                            />
-                          </div>
-                          <img
-                            className={styles.verified2Icon}
-                            alt=""
-                            src="/verified-2@2x.png"
-                          />
-                        </div>
-                        <div className={styles.rectangleParent}>
-                          <input
-                            className={styles.frameChild}
-                            type="checkbox"
-                            autoFocus
-                          />
-                          <img
-                            className={styles.vuesaxboldheartIcon}
-                            alt=""
-                            src="/vuesaxboldheart.svg"
-                          />
-                        </div>
-                        <input
-                          className={styles.auctionsChild}
-                          type="checkbox"
-                        />
-                        <img
-                          className={styles.vuesaxlinearheartSlashIcon}
-                          alt=""
-                          src="/vuesaxlinearheartslash.svg"
-                        />
-                        <button className={styles.rectangleGroup}>
-                          <img
-                            className={styles.frameItem}
-                            alt=""
-                            loading="lazy"
-                            src="/TransperentText1@2x.png"
-                          />
-                          <div className={styles.iconlyboldgraphParent}>
-                            <img
-                              className={styles.path33909Icon}
-                              alt=""
-                              src="/path-33909.svg"
-                            />
-                            <div className={styles.div}>05:02:00</div>
-                          </div>
-                        </button>
-                      </div>
-                      <div className={styles.frameContainer}>
-                        <div className={styles.frameDiv}>
-                          <div className={styles.formationOfUseParent}>
-                            <div className={styles.formationOfUse}>
-                              Formation of USE
-                            </div>
-                            <img
-                              className={styles.image29Icon5}
-                              alt=""
-                              src="/image-2917@2x.png"
-                            />
-                          </div>
-                          <div className={styles.frameWrapper1}>
-                            <div className={styles.descriptionWrapper}>
-                              <div className={styles.description}>
-                                <p className={styles.iFeelLike}>
-                                  I feel like formation of United States of
-                                </p>
-                                <p className={styles.iFeelLike}>
-                                  {" "}
-                                  Europe led by Germany is needed...
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div />
-                      </div>
-                      <div className={styles.timeGained}>Time Gained</div>
-                      <div className={styles.div1}>1:28</div>
-                    </div>
+                  {post && (
+                  <Auctions1         
+                        key={post.id}
+                        postId={post ? post.id : null} // Pass postId as prop
+                        postPicture={`/image-${45 + Number(pictureId)}@2x.png`} 
+                        mutualpfp1="/image-2912@2x.png"
+                        mutualpfp2="/image-2913@2x.png"
+                        mutualpfp3="/image-2914@2x.png"
+                        mutualpfp4="/image-2915@2x.png"
+                        mutualpfp5="/image-2916@2x.png"
+                        timerValue={timer.toString()}
+                        heading={heading}
+                        description={description}
+                        // desc2={post.desc2 || "Europe led by Germany is needed..."}
+                        category={category}
+                    />
+                    )}
                   </div>
                 </div>
               </div>
-              <div className={styles.auctions2}>
-                <div className={styles.usercard}>
-                  <img
-                    className={styles.image56Icon}
-                    alt=""
-                    src="/image-565@2x.png"
-                  />
-                  <img className={styles.iconlyboldgraph1} alt="" />
-                  <button className={styles.rectangleContainer}>
-                    <img
-                      className={styles.frameInner}
-                      alt=""
-                      src="/rectangle-3320@2x.png"
-                    />
-                    <div className={styles.iconlyboldgraphGroup}>
-                      <img className={styles.iconlyboldgraph2} alt="" />
-                      <img
-                        className={styles.vuesaxlinearunlimitedIcon1}
-                        alt=""
-                        src="/vuesaxlinearunlimited.svg"
-                      />
-                      <div className={styles.follow}>FOLLOW</div>
-                    </div>
-                  </button>
-                  <button className={styles.frameButton}>
-                    <img
-                      className={styles.frameItem}
-                      alt=""
-                      loading="lazy"
-                      src="/TransperentText2@2x.png"
-                    />
-                    <div className={styles.iconlyboldgraphContainer}>
-                      <img className={styles.iconlyboldgraph3} alt="" />
-                      <img
-                        className={styles.vuesaxlinearunlimitedIcon}
-                        alt=""
-                      />
-                      <div className={styles.byach}>BYACH</div>
-                    </div>
-                  </button>
-                  <button className={styles.rectangleParent1}>
-                    <img
-                      className={styles.frameChild1}
-                      alt=""
-                      loading="lazy"
-                      src="/blurText17@2x.png"
-                    />
-                    <div className={styles.frameChild2} />
-                  </button>
-                  <img
-                    className={styles.vuesaxlinearpeopleIcon}
-                    alt=""
-                    src="/vuesaxlinearpeople.svg"
-                  />
-                  <img
-                    className={styles.vuesaxlinearuserSquareIcon}
-                    alt=""
-                    src="/vuesaxlinearusersquare.svg"
-                  />
-                  <div className={styles.profile5}>PROFILE</div>
-                </div>
-                <img
-                  className={styles.verified2Icon1}
-                  alt=""
-                  src="/verified-24@2x.png"
-                />
-                <div className={styles.auctionsInner}>
-                  <div className={styles.frameDiv}>
-                    <div className={styles.auctionsWrapper}>
-                      <div className={styles.alexRodriguesAlexir}>
-                        Alex Rodrigues @Alexir
-                      </div>
-                    </div>
-                    <div className={styles.frameWrapper1}>
-                      <div className={styles.descriptionWrapper}>
-                        <div className={styles.description1}>
-                          <p className={styles.iFeelLike}>
-                            <span>
-                              <span>Carpediem/Virgo</span>
-                            </span>
-                          </p>
-                          <p className={styles.iFeelLike}>
-                            <span>
-                              <span>{`I’m not a mind reader, but I can tell what `}</span>
-                            </span>
-                          </p>
-                          <p className={styles.iFeelLike}>
-                            <span>
-                              <span>you’re thinking.</span>
-                            </span>
-                          </p>
-                          <p className={styles.iFeelLike}>
-                            <span className={styles.span}>
-                              <span>&nbsp;</span>
-                            </span>
-                          </p>
-                          <p className={styles.followers20kCla}>
-                            <span className={styles.span}>
-                              <span>{`       `}</span>
-                              <span> FOLLOWERS : 20K CLAN</span>
-                            </span>
-                          </p>
-                          <p className={styles.iFeelLike}>
-                            <span className={styles.span}>
-                              <span>{`                                                   `}</span>
-                            </span>
-                          </p>
-                          <p className={styles.iFeelLike}>
-                            <span className={styles.span}>
-                              <span>{`       FOLLOWING : 5743         BYACH `}</span>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.mutualFollowers}>MUTUAL FOLLOWERS</div>
-                <div className={styles.profileGroup}>
-                  <div className={styles.profile}>
-                    <img
-                      className={styles.image29Icon}
-                      alt=""
-                      src="/image-2912@2x.png"
-                    />
-                  </div>
-                  <div className={styles.profile1}>
-                    <img
-                      className={styles.image29Icon}
-                      alt=""
-                      src="/image-2913@2x.png"
-                    />
-                  </div>
-                  <div className={styles.profile2}>
-                    <img
-                      className={styles.image29Icon}
-                      alt=""
-                      src="/image-2914@2x.png"
-                    />
-                  </div>
-                  <div className={styles.profile3}>
-                    <img
-                      className={styles.image29Icon}
-                      alt=""
-                      src="/image-2915@2x.png"
-                    />
-                  </div>
-                  <div className={styles.profile4}>
-                    <img
-                      className={styles.image29Icon}
-                      alt=""
-                      src="/image-2916@2x.png"
-                    />
-                  </div>
-                  <img
-                    className={styles.verified2Icon}
-                    alt=""
-                    src="/verified-2@2x.png"
-                  />
-                </div>
-              </div>
+              <UserCard />
               <button className={styles.vuesaxlineararrowRight}>
                 <div className={styles.arrowRight}>
                   <img
@@ -354,7 +130,7 @@ const ViewPost = () => {
                 variant="outline"
                 w="1440px"
                 colorScheme="teal"
-              >{`                                                    NEW `}</Button>
+              >                                                 NEW `}</Button>
               <Button
                 className={styles.trending}
                 variant="outline"
@@ -416,19 +192,20 @@ const ViewPost = () => {
                   <div className={styles.inputleftaddon}>
                     <p
                       className={styles.alexRodrigues}
-                    >{`Alex Rodrigues     `}</p>
-                    <p className={styles.iFeelLike}>@Alexir</p>
+                    >{`Alex Rodrigues`}</p>
+                    <p className={styles.iFeelLike}>@alexir</p>
                   </div>
                   <div
                     className={styles.textPlaceholder}
-                  >{`I feel like the formation of United States of Europe led by Germany is needed as all Europe together as a country will make us undefeatable and the richest country surpassing USA. `}</div>
+                  >{post &&(post.content)}</div>
                 </div>
-                <button className={styles.vectorParent}>
+                {/* <button className={styles.vectorParent}> */}
                   <img
                     className={styles.vectorIcon2}
                     alt=""
                     src="/vector1.svg"
                   />
+                  <p className={styles.likes} >100</p>
                   <button className={styles.vuesaxlinearheartSlash}>
                     <div className={styles.heartSlash}>
                       <div className={styles.heartSlash}>
@@ -442,80 +219,155 @@ const ViewPost = () => {
                           alt=""
                           src="/vector2.svg"
                         />
+                        <p className={styles.dislikes} >100</p>
                         <img className={styles.vectorIcon4} alt="" />
                       </div>
                     </div>
                   </button>
-                </button>
+                {/* </button> */}
               </div>
               <div className={styles.component19}>
-                <div className={styles.property1default}>
-                  <div className={styles.textPlaceholderWrapper}>
-                    <div className={styles.textPlaceholder1}>
-                      I can understand your sentiment, but unity doesn't always
-                      guarantee success.
-                    </div>
-                  </div>
-                  <div className={styles.image41Parent}>
-                    <img
-                      className={styles.image29Icon11}
-                      alt=""
-                      src="/image-412@2x.png"
-                    />
-                    <div className={styles.inputleftaddon1}>
-                      <p className={styles.iFeelLike}>Emily Wilson</p>
-                      <p className={styles.iFeelLike}>@emilywilson</p>
-                    </div>
-                  </div>
-                  <div className={styles.property1defaultInner}>
-                    <button className={styles.vectorParent}>
-                      <img
-                        className={styles.vectorIcon5}
-                        alt=""
-                        src="/vector3.svg"
-                      />
-                      <button className={styles.vuesaxlinearheartSlash2}>
-                        <img
-                          className={styles.refreshIcon}
-                          alt=""
-                          src="/vuesaxlinearheartslash2.svg"
-                        />
-                      </button>
-                    </button>
-                  </div>
-                </div>
-                <div className={styles.property1variant2}>
-                  <div className={styles.frameParent3}>
-                    <div className={styles.image41Group}>
-                      <img
-                        className={styles.image29Icon11}
-                        alt=""
-                        src="/image-413@2x.png"
-                      />
-                      <div className={styles.inputleftaddon1}>
-                        <p className={styles.iFeelLike}>Ryan Smith</p>
-                        <p className={styles.iFeelLike}>@RyanFeeds</p>
-                      </div>
-                    </div>
-                    <div className={styles.textPlaceholder2}>
-                      Cultural diversity important too
-                    </div>
-                  </div>
-                  <div className={styles.property1defaultInner}>
-                    <div className={styles.vectorContainer}>
-                      <img
-                        className={styles.vectorIcon6}
-                        alt=""
-                        src="/vector4.svg"
-                      />
-                      <img
-                        className={styles.vuesaxlinearheartSlashIcon2}
-                        alt=""
-                        src="/vuesaxlinearheartslash3.svg"
-                      />
-                    </div>
-                  </div>
-                </div>
+  <div className={styles.commentWrapper}>
+    <Comments 
+      content="I can understand your sentiment, but unity doesn't always guarantee success."
+      author={{name: 'Emily Wilson', username: '@emilywilson'}}
+      imgSrc="/image-412@2x.png"
+      handleIconClick={() => console.log('Icon clicked!')}
+    />
+  </div>
+  <div className={styles.replyWrapper}>
+    <Comments 
+      content="Cultural diversity important too"
+      author={{name: 'Ryan Smith', username: '@RyanFeeds'}}
+      imgSrc="/image-413@2x.png"
+      handleIconClick={() => console.log('Icon clicked!')}
+    />
+  </div>
+  <div className={styles.commentWrapper}>
+    <Comments 
+      content="Cultural diversity important too"
+      author={{name: 'Ryan Smith', username: '@RyanFeeds'}}
+      imgSrc="/image-4113@2x.png"
+      handleIconClick={() => console.log('Icon clicked!')}
+    />
+  </div>
+  <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="All countries must be on board."
+        author={{ name: "John Doe", username: "@johndoe" }}
+        imgSrc="/image-414@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+            </div>
+
+      <div className={styles.replyWrapper}>
+        <Comments
+          className={styles.reply}
+          content="Cultural diversity important too"
+          author={{ name: "Ryan Smith", username: "@RyanFeeds" }}
+          imgSrc="/image-4112@2x.png"
+          handleIconClick={() => console.log("Icon clicked!")}
+        />
+    </div>
+    <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="No I dont think so"
+        author={{ name: "Jane Smith", username: "@janesmith" }}
+        imgSrc="/image-415@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+        </div>
+      <div className={styles.replyWrapper}>
+        <Comments
+          className={styles.reply}
+          content="Interesting concept, evaluate well."
+          author={{ name: "Sarah Davis", username: "@sarahdavis" }}
+          imgSrc="/image-417@2x.png"
+          handleIconClick={() => console.log("Icon clicked!")}
+        />
+    </div>
+    <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="Brexit was perfect"
+        author={{ name: "Jane Smith", username: "@janesmith" }}
+        imgSrc="/image-415@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+        </div>
+      <div className={styles.replyWrapper}>
+        <Comments
+          className={styles.reply}
+          content="Interesting concept, evaluate well."
+          author={{ name: "Sarah Davis", username: "@sarahdavis" }}
+          imgSrc="/image-4111@2x.png"
+          handleIconClick={() => console.log("Icon clicked!")}
+        />
+    </div>
+    <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="No I dont think so"
+        author={{ name: "Jane Smith", username: "@janesmith" }}
+        imgSrc="/image-419@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+        </div>
+      <div className={styles.replyWrapper}>
+        <Comments
+          className={styles.reply}
+          content="Interesting concept, evaluate well."
+          author={{ name: "Serena Lewis", username: "@serenaL" }}
+          imgSrc="/image-418@2x.png"
+          handleIconClick={() => console.log("Icon clicked!")}
+        />
+    </div>
+    <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="Yeah right"
+        author={{ name: "Smith Steve", username: "@smithS" }}
+        imgSrc="/image-416@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+        </div>
+      <div className={styles.replyWrapper}>
+        <Comments
+          className={styles.reply}
+          content="Interesting concept, evaluate well."
+          author={{ name: "Sarah Davis", username: "@sarahdavis" }}
+          imgSrc="/image-417@2x.png"
+          handleIconClick={() => console.log("Icon clicked!")}
+        />
+    </div>
+    <div className={styles.commentWrapper}>
+      <Comments
+        className={styles.comment}
+        content="No I dont think so"
+        author={{ name: "Jane Smith", username: "@janesmith" }}
+        imgSrc="/image-415@2x.png"
+        handleIconClick={() => console.log("Icon clicked!")}
+      />
+        </div>
+</div>
+
+              {/* <div className={styles.component19}>
+              <Comments className={styles.comment}
+                    content="I can understand your sentiment, but unity doesn't always guarantee success."
+                    author={{name: 'Emily Wilson', username: '@emilywilson'}}
+                    imgSrc="/image-412@2x.png"
+                    handleIconClick={() => console.log('Icon clicked!')}
+                />
+               <div className={styles.comment}>
+    <Comments className={styles.reply}
+        content="Cultural diversity important too"
+        author={{name: 'Ryan Smith', username: '@RyanFeeds'}}
+        imgSrc="/image-413@2x.png"
+        handleIconClick={() => console.log('Icon clicked!')}
+    />
+</div> 
                 <div className={styles.property1variant3}>
                   <div className={styles.frameParent4}>
                     <div className={styles.image41Group}>
@@ -838,7 +690,7 @@ const ViewPost = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className={styles.viewMore}>--View More--</div>
               <img
                 className={styles.image56Icon1}
@@ -889,39 +741,8 @@ const ViewPost = () => {
             </div>
           </div>
         </div>
-        <div className={styles.frameParent15}>
-          <div className={styles.frameWrapper4}>
-            <div className={styles.vectorContainer}>
-              <img className={styles.vectorIcon6} alt="" src="/vector3.svg" />
-              <img
-                className={styles.vuesaxlinearheartSlashIcon2}
-                alt=""
-                src="/vuesaxlinearheartslash12.svg"
-              />
-            </div>
-          </div>
-          <div className={styles.frameWrapper5}>
-            <div className={styles.vectorContainer}>
-              <img className={styles.vectorIcon6} alt="" src="/vector14.svg" />
-              <img
-                className={styles.vuesaxlinearheartSlashIcon2}
-                alt=""
-                src="/vuesaxlinearheartslash13.svg"
-              />
-            </div>
-          </div>
-          <div className={styles.frameWrapper6}>
-            <div className={styles.vectorContainer}>
-              <img className={styles.vectorIcon6} alt="" src="/vector3.svg" />
-              <img
-                className={styles.vuesaxlinearheartSlashIcon2}
-                alt=""
-                src="/vuesaxlinearheartslash12.svg"
-              />
-            </div>
-          </div>
-        </div>
       </div>
+      <Header/>
       {isCreatePostPopPopupOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"

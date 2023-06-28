@@ -35,8 +35,8 @@ const I8 = () => {
             </div>
             <div />
           </div>
-          <div className={styles.timeGained}>Time Gained</div>
-          <div className={styles.div}>1:28</div>
+          <div className={styles.timeGained}>Category</div>
+          <div className={styles.div}>Politics</div>
         </div>
       </div>
     </div>

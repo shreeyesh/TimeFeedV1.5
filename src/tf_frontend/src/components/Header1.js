@@ -16,7 +16,7 @@ const Header1 = () => {
   }, [navigate]);
   
   const onEarnClick = useCallback(() => {
-    navigate("/view-post");
+    // navigate("/view-post");
   }, [navigate]);
   
   const openCreatePostPopPopup = useCallback(() => {

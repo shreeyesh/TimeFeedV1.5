@@ -114,8 +114,8 @@ const PostCardAsset = () => {
           </div>
           <div />
         </div>
-        <div className={styles.timeGained}>Time Gained</div>
-        <div className={styles.div1}>1:28</div>
+        <div className={styles.timeGained}>Category</div>
+        <div className={styles.div1}>Politics</div>
       </div>
     </div>
   );

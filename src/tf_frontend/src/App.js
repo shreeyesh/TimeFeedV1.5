@@ -87,7 +87,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/homepage" element={<HomePage />} />
-      <Route path="/view-post" element={<ViewPost />} />
+      <Route path="/view-post/:postId/:pictureId" element={<ViewPost />} />
       <Route path="/userprofile" element={<UserProfile />} />
       <Route path="/postcardasset" element={<PostCardAsset />} />
       <Route path="/i4" element={<I4 />} />

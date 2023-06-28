@@ -6,6 +6,13 @@ import { useState } from "react";
 
 const HallOfFameContainer = () => {
   const [selectedCategory, setSelectedCategory] = useState("Categories");
+  const [selectedButton, setSelectedButton] = useState(null);
+  
+  const handleClick = (buttonName) => {
+    setSelectedButton(buttonName);
+  };
+
+
 
   return (
     <div className={styles.desktop2}>
@@ -33,15 +40,24 @@ const HallOfFameContainer = () => {
               </MenuList>
               </Menu>
               <div className={styles.dayfilter}>
-                <button className={styles.daily}>
-                  <div className={styles.daily1}>DAILY</div>
-                </button>
-                <button className={styles.daily}>
-                  <div className={styles.daily1}>WEEKLY</div>
-                </button>
-                <button className={styles.daily}>
-                  <div className={styles.daily1}>MONTHLY</div>
-                </button>
+              <button
+        className={`${styles.daily} ${selectedButton === 'daily' ? styles.clicked : ""}`}
+        onClick={() => handleClick('daily')}
+      >
+        <div className={styles.daily1}>DAILY</div>
+      </button>
+      <button
+        className={`${styles.daily} ${selectedButton === 'weekly' ? styles.clicked : ""}`}
+        onClick={() => handleClick('weekly')}
+      >
+        <div className={styles.daily1}>WEEKLY</div>
+      </button>
+      <button
+        className={`${styles.daily} ${selectedButton === 'monthly' ? styles.clicked : ""}`}
+        onClick={() => handleClick('monthly')}
+      >
+        <div className={styles.daily1}>MONTHLY</div>
+      </button>
               </div>
             </div>
           </div>

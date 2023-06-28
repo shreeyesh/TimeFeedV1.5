@@ -1,3 +1,12 @@
+@keyframes scrollLeft {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
 .trendingPosts {
   position: relative;
   font-weight: 600;
@@ -242,7 +251,16 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-base);
+
+  animation-name: scrollLeft;
+  animation-duration: 10s; /* Adjust this value to control the speed of the scrolling */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
+.favoritParent:hover {
+  animation-play-state: paused;
+}
+
 .component13 {
   position: absolute;
   top: 91px;
@@ -262,6 +280,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-base);
+
+  animation-name: scrollLeft;
+  animation-duration: 5s; /* Adjust this value to control the speed of the scrolling */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.favoritGroup:hover {
+  animation-play-state: paused;
 }
 .component15 {
   position: absolute;

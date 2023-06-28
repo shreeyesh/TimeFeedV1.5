@@ -3,8 +3,12 @@ import Auctions1 from "./Auctions1";
 import styles from "./AuctionRow.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor,HttpAgent } from "@dfinity/agent";
+import { Link } from 'react-router-dom';
+import SearchResultPopup from './SearchResultPopup';
 
-const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
+
+// 711,72,651,621
+const AuctionRow = ({ handleButtonClick: toggleRecentPosts , searchTerm, refresh}) => {
   const [post, setPost] = useState(null); // Initialize post as null
   const [posts, setPosts] = useState(Array(5).fill(null)); // Initialize an array of 11 null posts
   const [recentPosts, setRecentPosts] = useState(Array(5).fill(null)); // Initialize an array of 11 null posts
@@ -13,10 +17,23 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
   const [timer, setTimer] = useState(0);
   const [title, setTitle] = useState("");
   const [creator, setCreator] = useState("");
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const [downvotes, setDownvotes] = useState(0);
   const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
   // const agent = new HttpAgent({ host: "https://ic0.app" });
-  const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  // const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  let agent;
+  console.log("env : ",process.env.REACT_APP_NODE_ENV);
+
+switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+        agent = new HttpAgent({ host: "https://ic0.app" }); // mainnet
+        break;
+    default:
+        agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        break;
+}
+
   agent.fetchRootKey();
   const canister = Actor.createActor(canisterIdlFactory, {
     agent,
@@ -30,6 +47,18 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
       setShowRecent(!showRecent);
       toggleRecentPosts(); // Instead of calling setShowRecent(!showRecent);
     }
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        await fetchPostCount();
+        console.log("Post count post refresh:", postCount);
+        await fetchAllPosts();
+        console.log("Posts post refresh:", posts);
+      };
+    
+      fetchData();
+    }, [refresh]); // depends on refresh state, will run fetchData whenever refresh changes
+
   // Function to get total posts count
   const fetchPostCount = async () => {
     try {
@@ -46,9 +75,11 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
   const fetchAllPosts = async () => {
     try {
       const promises = [];
+      if (postCount !== null && postCount !== undefined) {
       for (let i = postCount - BigInt(1); i >= 0; i--) {
         promises.push(canister.get_post(BigInt(i)));
       }
+    }
       const postsData = await Promise.all(promises);
 
       // Add the pictureId here:
@@ -73,8 +104,26 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
     } catch (error) {
       console.error("Error fetching post details:", error);
     }
+
   };
 
+      // const { searchTerm } = useContext(SearchContext);
+      useEffect(() => {
+        if (searchTerm && searchTerm.trim() !== '') {
+            setPopupOpen(true);
+        } else {
+            setPopupOpen(false);
+        }
+    }, [searchTerm]);
+
+      // Filter posts for search term
+      const filteredPosts = posts.filter((post) =>
+      post &&
+      post.title &&
+      post.title.trim().toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );   
+    console.log("Filtered posts:", filteredPosts);  
+    console.log("Search term:", searchTerm);
   
   
   
@@ -90,48 +139,57 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts }) => {
   }, [postCount]);  // Add postCount as a dependency
 
   return (
-    <div className={styles.auctionsParent} >
-      <button className={styles.toggle} onClick={handleButtonClick}> {showRecent ? 'TOP' : 'RECENT'}</button>
-            {showRecent ? 
-                recentPosts.map((post, index) => (
-                    <Auctions1         
-                        key={post.id}
-                        postId={post ? post.id : null} // Pass postId as prop
-                        postPicture={`/image-${45 + post.pictureId}@2x.png`} 
-                        mutualpfp1="/image-2912@2x.png"
-                        mutualpfp2="/image-2913@2x.png"
-                        mutualpfp3="/image-2914@2x.png"
-                        mutualpfp4="/image-2915@2x.png"
-                        mutualpfp5="/image-2916@2x.png"
-                        timerValue={post.timer.toString()}
-                        heading={post.title}
-                        description={post.content}
-                        // desc2={post.desc2 || "Europe led by Germany is needed..."}
-                        category={post.category}
-                    />
-                )) :
-    // {/*  All posts mapping */}
-    posts.map((post, index) => (
-      post !== null ? (
-        <Auctions1
-          key={post.id}
-          postId={post.id}
-          postPicture={`/image-${45 + post.pictureId}@2x.png`}
-          mutualpfp1="/image-2912@2x.png"
-          mutualpfp2="/image-2913@2x.png"
-          mutualpfp3="/image-2914@2x.png"
-          mutualpfp4="/image-2915@2x.png"
-          mutualpfp5="/image-2916@2x.png"
-          timerValue={post.timer.toString()}
-          heading={post.title}
-          description={post.content}
-          // desc2={post.desc2 || "Europe led by Germany is needed..."}
-          category={post.category}
-          />
-      ) : null
-    ))
-    }
-    </div>
+    <div className={styles.auctionsParent}>
+    <SearchResultPopup filteredPosts={filteredPosts} isOpen={isPopupOpen} />
+    <button className={styles.toggle} onClick={handleButtonClick}>
+      {showRecent ? 'TOP' : 'RECENT'}
+    </button>
+    {showRecent ? (
+      recentPosts.map((post, index) => (
+        <div key={post.id}>
+          {/* <Link to={`/view-post/${post.id}/${post.pictureId}`}> */}
+            <Auctions1
+              postId={post.id}
+              pictureId={post.pictureId}
+              postPicture={`/image-${45 + post.pictureId}@2x.png`}
+              mutualpfp1="/image-2912@2x.png"
+              mutualpfp2="/image-2913@2x.png"
+              mutualpfp3="/image-2914@2x.png"
+              mutualpfp4="/image-2915@2x.png"
+              mutualpfp5="/image-2916@2x.png"
+              timerValue={post.timer.toString()}
+              heading={post.title}
+              description={post.content}
+              category={post.category}
+            />
+          {/* </Link> */}
+        </div>
+      ))
+    ) : (
+      posts.map((post, index) => (
+        post !== null ? (
+          <div key={post.id}>
+            {/* <Link to={`/view-post/${post.id}/${post.pictureId}`}> */}
+              <Auctions1
+                postId={post.id}
+                pictureId={post.pictureId}
+                postPicture={`/image-${45 + post.pictureId}@2x.png`}
+                mutualpfp1="/image-2912@2x.png"
+                mutualpfp2="/image-2913@2x.png"
+                mutualpfp3="/image-2914@2x.png"
+                mutualpfp4="/image-2915@2x.png"
+                mutualpfp5="/image-2916@2x.png"
+                timerValue={post.timer.toString()}
+                heading={post.title}
+                description={post.content}
+                category={post.category}
+              />
+            {/* </Link> */}
+          </div>
+        ) : null
+      ))
+    )}
+  </div>
   );
 
 };

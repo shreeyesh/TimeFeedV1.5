@@ -21,5 +21,23 @@
       "args": ""
     }
   },
+  "networks": {
+    "local": {
+      "bind": "localhost:8000",
+      "type": "ephemeral"
+    },
+    "sodium": {
+      "providers": [
+        "https://sodium.dfinity.network"
+      ],
+      "type": "persistent"
+    },
+    "mainnet": {
+      "providers": [
+        "https://identity.ic0.app"
+      ],
+      "type": "persistent"
+    }
+  },
   "output_env_file": ".env"
 }

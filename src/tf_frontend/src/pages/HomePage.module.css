@@ -1,3 +1,22 @@
+@keyframes scrollUp {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -1140px;
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 1140px;
+  }
+}
+
+
 .image48Icon {
   position: absolute;
   top: 0;
@@ -53,6 +72,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-base);
+
+   animation-name: scrollUp;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.imageParent:hover {
+  animation-play-state: paused;
 }
 .component5 {
   position: absolute;
@@ -113,7 +140,17 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-base);
+
+  animation-name: scrollUp;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
+
+.imageGroup:hover {
+  animation-play-state: paused;
+}
+
 .component10 {
   position: absolute;
   top: 128px;
@@ -178,18 +215,6 @@
   height: 92px;
   object-fit: cover;
   display: none;
-}
-.notificationBingIcon {
-  position: absolute;
-  height: 2.73%;
-  width: 1.94%;
-  top: 5.96%;
-  right: 9.65%;
-  bottom: 91.31%;
-  left: 88.4%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
 }
 .sectionhomepage {
   position: relative;
@@ -469,20 +494,21 @@
 }
 .chevronRightBlack24dp15,
 .chevronRightBlack24dp15Wrapper {
-  position: absolute;
-  top: 16px;
-  left: 16px;
+  position: fixed;
+  top: 715px;
+  left: 1385px;
   width: 40px;
   height: 40px;
   overflow: hidden;
+
 }
 .chevronRightBlack24dp15Wrapper {
   cursor: pointer;
   border: 0;
   padding: 0;
   background-color: var(--nft-app-white);
-  top: 824px;
-  left: 1309px;
+  top: 700px;
+  left: 1367px;
   border-radius: var(--br-81xl);
   box-shadow: 0 8px 12px rgba(30, 30, 30, 0.04);
   width: 71px;

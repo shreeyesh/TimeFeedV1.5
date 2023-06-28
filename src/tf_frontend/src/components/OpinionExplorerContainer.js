@@ -1,6 +1,21 @@
-import { useCallback, useEffect } from "react";
+import { useState,useCallback, useEffect } from "react";
 import styles from "./OpinionExplorerContainer.module.css";
+import { useNavigate } from "react-router-dom";
+import CreatePostPop from "./CreatePostPop";
+import PortalPopup from "./PortalPopup";
+
 const OpinionExplorerContainer = () => {
+
+  const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
+  const openCreatePostPopPopup = useCallback(() => {
+    setCreatePostPopPopupOpen(true);
+  }, []);
+
+  const closeCreatePostPopPopup = useCallback(() => {
+    setCreatePostPopPopupOpen(false);
+  }, []);
+
+
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -23,7 +38,6 @@ const OpinionExplorerContainer = () => {
     for (let i = 0; i < scrollAnimElements.length; i++) {
       observer.observe(scrollAnimElements[i]);
     }
-
     return () => {
       for (let i = 0; i < scrollAnimElements.length; i++) {
         observer.unobserve(scrollAnimElements[i]);
@@ -73,7 +87,7 @@ const OpinionExplorerContainer = () => {
             Explore
           </div>
         </button>
-        <button className={styles.button1} autoFocus data-animate-on-scroll>
+        <button className={styles.button1} onClick={openCreatePostPopPopup} autoFocus data-animate-on-scroll>
           <div className={styles.create}>Post</div>
         </button>
       </div>
@@ -90,6 +104,15 @@ const OpinionExplorerContainer = () => {
           Explore More about TimeFeed
         </button>
       </div>
+      {isCreatePostPopPopupOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeCreatePostPopPopup}
+        >
+          <CreatePostPop onClose={closeCreatePostPopPopup} />
+        </PortalPopup>
+      )}
     </div>
   );
 };

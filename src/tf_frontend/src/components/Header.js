@@ -7,10 +7,14 @@ import { AuthClient } from "@dfinity/auth-client";
 import { Principal } from "@dfinity/principal";
 
 
-const Header = () => {
+// const Header = ([setSearchTerm]) => {
+  const Header = ({ setSearchTerm }) => {
   const navigate = useNavigate();
+  // const SearchContext = React.createContext();
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
   const [isWalletPopPopupOpen, setWalletPopPopupOpen] = useState(false);
+
+
 
   const onTradeClick = useCallback(() => {
     navigate("/");
@@ -21,7 +25,7 @@ const Header = () => {
   }, [navigate]);
   
   const onEarnClick = useCallback(() => {
-    navigate("/view-post");
+    navigate("/");
   }, [navigate]);
   
   const openCreatePostPopPopup = useCallback(() => {
@@ -66,22 +70,25 @@ const logout = async () => {
   // The user is now logged out
 };
 
+
 // const checkAuth = async () => {
 //   const isAuthenticated = await authClient.isAuthenticated();
 //   console.log(isAuthenticated);  // Outputs 'true' if the user is authenticated, 'false' otherwise
 // };
 
-
   return (
     <>
       <nav className={styles.navbar} data-scroll-to="navbar">
-        <div className={styles.timefeedLowResolutionLogoBParent}>
-          <button className={styles.timefeedLowResolutionLogoB} />
+        <div className={styles.timefeedLowResolutionLogoBParent} >
+          <button className={styles.timefeedLowResolutionLogoB} onClick={onExploreClick} />
+          {/* <SearchContext.Provider value={{ searchTerm, setSearchTerm }}> */}
           <input
             className={styles.frameChild}
             type="text"
             placeholder="Search posts, topics and accounts"
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
+            {/* </SearchContext.Provider> */}
           <button className={styles.darkMode}>
             <img className={styles.darkModeChild} alt="" src="/ellipse-1.svg" />
           </button>
@@ -96,6 +103,16 @@ const logout = async () => {
             </button>
           </div>
           <div className={styles.icon}>
+            <button
+              // className={styles.accountCircleBlack24dp2}
+              onClick={onAccountCircleBlack24dp2Click}
+            >
+               <img
+            className={styles.notificationBingIcon}
+            alt=""
+            src="/notificationbing.svg"
+          />
+            </button>
             <button
               className={styles.accountCircleBlack24dp2}
               onClick={onAccountCircleBlack24dp2Click}

@@ -239,10 +239,10 @@ const AuctionsContainer = ({
         <div />
       </div>
       <div className={styles.timeGained} style={timeGainedStyle}>
-        Time Gained
+        Category
       </div>
       <div className={styles.div1} style={divStyle}>
-        1:28
+        Politics
       </div>
     </div>
   );

@@ -25,6 +25,22 @@
   align-items: center;
   justify-content: center;
 }
+.clicked {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-base);
+  background-color: var(--grey-800);
+  border-radius: var(--br-5xs) 0 0 var(--br-5xs);
+  border-top: 1px solid var(--color-aliceblue);
+  border-bottom: 1px solid var(--color-aliceblue);
+  border-left: 1px solid var(--color-aliceblue);
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 .dayfilter {
   justify-content: flex-start;
 }

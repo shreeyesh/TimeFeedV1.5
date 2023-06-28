@@ -80,7 +80,7 @@ const Auctions = ({ heading, description, gainTimeValue, timerValue }) => {
           />
         </div>
       </div>
-      <div className={styles.timeGained}>Time Gained</div>
+      <div className={styles.timeGained}>Category</div>
       <div className={styles.div1}>{gainTimeValue}</div>
     </div>
   );

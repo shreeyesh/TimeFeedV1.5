@@ -3,6 +3,7 @@ import styles from "./Auctions1.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor, HttpAgent } from "@dfinity/agent";
 import React, { useState, useCallback } from "react";
+
 const Auctions1 = ({
   postPicture,
   mutualpfp1,
@@ -16,9 +17,11 @@ const Auctions1 = ({
   desc2,
   category,
   postId,
+  pictureId,
 }) => {
 
   const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  const navigate = useNavigate();
   // const agent = new HttpAgent({ host: "https://ic0.app" });
   const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
   agent.fetchRootKey();
@@ -31,7 +34,14 @@ const Auctions1 = ({
    const [voteStatus, setVoteStatus] = useState(null); // null - no vote, 1 - upvoted, -1 - downvoted
    // New state variable for timer
    const [timer, setTimer] = useState(timerValue); // Initialize with the prop timerValue
- 
+  
+  //  Function to open user profile
+  const userProfileClick = useCallback(() => {
+    console.log("Opening user profile");
+    // history.push("/profile");
+    navigate("/userprofile");
+  }, [navigate]);
+
 
    // Function to handle upvote
    const handleUpvote = async (postId) => {
@@ -71,18 +81,19 @@ const Auctions1 = ({
     }
   };
 
-  const navigate = useNavigate();
+  // const history = useHistory();
 const onAuctionClick = useCallback(() => {
   console.log("Auction clicked");
-  navigate("/view-post");
-}, [navigate]);
+  console.log("pic id:", pictureId);
+  console.log("Auction clicked, navigating to", `/view-post/${postId}/${pictureId}`);
+  navigate(`/view-post/${postId}/${pictureId}`);}, [navigate, postId, pictureId]);
   console.log("cat:", category);
 
 
   return (
     <div className={styles.auctions} >
       <div className={styles.auctions1} >
-        <img className={styles.image49Icon} alt="" src={postPicture} onClick={onAuctionClick}  />
+        <img className={styles.image49Icon} alt="" src={postPicture} onClick={onAuctionClick} />
         <div className={styles.profileParent}>
           <div className={styles.profile}>
             <img className={styles.image29Icon} alt="" src={mutualpfp1} />
@@ -138,13 +149,16 @@ const onAuctionClick = useCallback(() => {
       <div className={styles.frameGroup}>
         <div className={styles.frameContainer}>
           <div className={styles.formationOfUseParent}>
-            <div className={styles.formationOfUse}>{heading}</div>
+            <div className={styles.formationOfUse} onClick={onAuctionClick}>{heading}</div>
+            <div className={styles.userprofile}>
             <img
-              className={styles.image29Icon5}
+              className={styles.image29Icon}
               alt=""
-              src="/image-2916@2x.png"
+              src="/image-565@2x.png"
+              onClick={userProfileClick}
               // src/tf_frontend/public/timefeedlowresolutionlogoblackonwhitebackground-2@2x.png
             />
+            </div>
           </div>
           <div className={styles.frameWrapper}>
             <div className={styles.descriptionWrapper}>
@@ -156,7 +170,7 @@ const onAuctionClick = useCallback(() => {
           </div>
         </div>
         <div className={styles.timeGainedParent}>
-          <div className={styles.timeGained}>Category</div>
+          <div className={styles.timeGained} onClick={userProfileClick}>@alexir</div>
           <div className={styles.div1}>{category}</div>
         </div>
       </div>
