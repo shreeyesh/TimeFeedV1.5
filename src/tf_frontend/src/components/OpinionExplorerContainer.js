@@ -103,6 +103,18 @@ const OpinionExplorerContainer = () => {
         >
           Explore More about TimeFeed
         </button>
+        <p className={styles.poweredBy}>
+          Built on{" "}
+          <a
+            className={styles.timeFeed}
+            href="https://timefeed.io/"   
+            target="_blank"
+            rel="noreferrer"
+          >
+            Internet Computer
+          </a>
+        </p>
+            <img className={styles.icLogo} src="/ic.jpeg" alt="ICP" />
       </div>
       {isCreatePostPopPopupOpen && (
         <PortalPopup

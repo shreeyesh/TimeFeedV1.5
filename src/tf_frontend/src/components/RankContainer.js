@@ -44,7 +44,7 @@ const RankContainer = ({
         <div className={styles.info1}>
           <div className={styles.label1}>+ 45,23%</div>
           <div className={styles.image28Parent}>
-            <img className={styles.image28Icon} alt="" src="/image-28@2x.png" />
+            <img className={styles.image28Icon} alt="" src="/ic.jpeg" />
             <div className={styles.description}>{playerScoreDifference}</div>
           </div>
         </div>
@@ -74,7 +74,7 @@ const RankContainer = ({
         <div className={styles.info1}>
           <div className={styles.label1}>+ 45,23%</div>
           <div className={styles.image28Parent}>
-            <img className={styles.image28Icon} alt="" src="/image-28@2x.png" />
+            <img className={styles.image28Icon} alt="" src="/ic.jpeg" />
             <div className={styles.description}>{playerScore2}</div>
           </div>
         </div>
@@ -104,7 +104,7 @@ const RankContainer = ({
         <div className={styles.info1}>
           <div className={styles.label1}>+ 45,23%</div>
           <div className={styles.image28Parent}>
-            <img className={styles.image28Icon} alt="" src="/image-28@2x.png" />
+            <img className={styles.image28Icon} alt="" src="/ic.jpeg" />
             <div className={styles.description}>{playerScore2Difference}</div>
           </div>
         </div>

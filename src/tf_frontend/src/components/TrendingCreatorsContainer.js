@@ -62,7 +62,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -75,7 +75,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -132,7 +132,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -145,7 +145,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -202,7 +202,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -215,7 +215,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -272,7 +272,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -285,7 +285,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -342,7 +342,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -355,7 +355,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -414,7 +414,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -427,7 +427,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -484,7 +484,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -497,7 +497,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -554,7 +554,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -567,7 +567,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -624,7 +624,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -637,7 +637,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>
@@ -694,7 +694,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-30@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>0.12</div>
                   </div>
@@ -707,7 +707,7 @@ const TrendingCreatorsContainer = () => {
                     <img
                       className={styles.image30Icon}
                       alt=""
-                      src="/image-301@2x.png"
+                      src="/ic.jpeg"
                     />
                     <div className={styles.shayneMclaughlin}>13K</div>
                   </div>

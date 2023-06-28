@@ -239,7 +239,7 @@
   position: relative;
   font-weight: 600;
   display: inline-block;
-  width: 267px;
+  width: 265px;
   flex-shrink: 0;
 }
 .image29Icon5 {
@@ -333,6 +333,7 @@
   font-size: var(--inter-medium-16-size);
   color: var(--nft-app-white);
   font-family: var(--inter-medium-16);
+  margin-top: 10px;
 }
 .auctions:hover {
   cursor: auto;

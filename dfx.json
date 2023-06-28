@@ -4,15 +4,6 @@
     "tf_backend": {
       "type": "motoko",
       "main": "src/tf_backend/main.mo"
-    },
-    "tf_frontend": {
-      "type": "assets",
-      "source": [
-        "src/tf_frontend/public"
-      ],
-      "dependencies": [
-        "tf_backend"
-      ]
     }
   },
   "defaults": {
@@ -25,12 +16,6 @@
     "local": {
       "bind": "localhost:8000",
       "type": "ephemeral"
-    },
-    "sodium": {
-      "providers": [
-        "https://sodium.dfinity.network"
-      ],
-      "type": "persistent"
     },
     "mainnet": {
       "providers": [

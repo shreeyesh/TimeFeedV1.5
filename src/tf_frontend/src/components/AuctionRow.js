@@ -19,7 +19,15 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts , searchTerm, refresh
   const [creator, setCreator] = useState("");
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [downvotes, setDownvotes] = useState(0);
-  const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  let canisterId
+  switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+   canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
+  break;
+    default:
+  canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  break;
+  }
   // const agent = new HttpAgent({ host: "https://ic0.app" });
   // const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
   let agent;

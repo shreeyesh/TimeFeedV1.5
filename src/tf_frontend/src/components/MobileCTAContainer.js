@@ -16,9 +16,11 @@ const MobileCTAContainer = () => {
               <div className={styles.sectionTitle}>Enjoy from your mobile</div>
             </div>
             <div className={styles.description}>
-              Download the app to never miss out on amazing battles, Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit. Auctor neque sed
-              imperdiet nibh lectus feugiat nunc sem.
+              Download the app to never miss out on amazing battles, TimeFeed is
+              available on both Android and iOS.
+              Built using Internet Computer.
+              Welcome to the future of social media.
+              Welcome to TimeFeed.
             </div>
           </div>
         </div>
