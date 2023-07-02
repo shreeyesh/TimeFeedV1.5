@@ -32,6 +32,8 @@ actor class TimeFeedImpl() {
   var posts : HashMap.HashMap<Nat, Post> = HashMap.HashMap<Nat, Post>(0, Int.equal, Int.hash);
   var nextId : Nat = 0;
   var rankings : HashMap.HashMap<Nat, Nat> = HashMap.HashMap<Nat, Nat>(0, Int.equal, Int.hash);
+  var usernames : HashMap.HashMap<Principal, Text> = HashMap.HashMap<Principal, Text>(0, Principal.equal, Principal.hash);
+
 //   public func handleRequest(request : Http.Request) : async Http.Response {
 //  let responseHeaders = {
 //       #headers = {
@@ -69,6 +71,14 @@ actor class TimeFeedImpl() {
     }
   };
 // };
+
+public shared({ caller }) func setUsername(newUsername: Text) : async () {
+    usernames.put(caller, newUsername);
+};
+
+public shared({ caller }) func getUsername() : async ?Text {
+    return usernames.get(caller);
+};
 
 // Upvote a post
 public shared({ caller }) func upvote(post_id: Nat) : async () {

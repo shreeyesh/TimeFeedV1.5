@@ -48,6 +48,11 @@ switch(process.env.REACT_APP_NODE_ENV) {
     canisterId,
   });
 
+  const postsDummy = {
+    post : {title: "Loading...", creator: "Loading...", timer: "Loading...", downvotes: "Loading..."},
+    post : {title: "Loading...", creator: "Loading...", timer: "Loading...", downvotes: "Loading..."},
+  }
+
   const [showRecent, setShowRecent] = useState(false);
 
     const handleButtonClick = () => {
@@ -92,6 +97,10 @@ switch(process.env.REACT_APP_NODE_ENV) {
 
       // Add the pictureId here:
       const allPosts = postsData.map((response, index) => {
+        if (response[0] === null) {
+          console.log("Null post:", index);
+          return{...postsDummy[0], pictureId: index};
+        }
         const post = response[0];
         return {...post, pictureId: index};
       });
@@ -157,6 +166,7 @@ switch(process.env.REACT_APP_NODE_ENV) {
         <div key={post.id}>
           {/* <Link to={`/view-post/${post.id}/${post.pictureId}`}> */}
             <Auctions1
+              post = {post}
               postId={post.id}
               pictureId={post.pictureId}
               postPicture={`/image-${45 + post.pictureId}@2x.png`}

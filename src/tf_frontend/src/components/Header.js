@@ -13,6 +13,8 @@ import { Principal } from "@dfinity/principal";
   // const SearchContext = React.createContext();
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
   const [isWalletPopPopupOpen, setWalletPopPopupOpen] = useState(false);
+  const [username, setUsername] = useState(null); // Add a new state for username
+  const [isEditingUsername, setIsEditingUsername] = useState(false); // State for editing username
 
 
 
@@ -51,16 +53,30 @@ import { Principal } from "@dfinity/principal";
   
   const login = async () => {
     const authClient = await AuthClient.create();
-  await authClient.login({
-    onSuccess: async () => {
-      const identity = authClient.getIdentity();
-      console.log("identity : ",identity);
-      const principal = Principal.fromText(identity.getPrincipal().toString());
-      console.log("principal : ",principal);
-      // Now you can use the returned identity to interact with your canisters
-    },
-  });
-};
+    await authClient.login({
+      onSuccess: async () => {
+        const identity = authClient.getIdentity();
+        const principal = Principal.fromText(identity.getPrincipal().toString());
+        // Assume that you have a function getUsername that gets the username from principal
+        const usernameFromPrincipal = await yourCanisterClient.getUsername(principal);
+        setUsername(usernameFromPrincipal);
+      },
+    });
+  };
+
+  const handleEditUsername = () => {
+    // Switch to editing mode
+    setIsEditingUsername(true);
+  };
+
+  const handleUsernameChange = (newUsername) => {
+    // Here you should save the username back to the principal
+    // Then update the state with the new username
+    setUsername(newUsername);
+    setIsEditingUsername(false);
+  };
+
+
 
 const logout = async () => {
   const authClient = await AuthClient.create();
@@ -120,7 +136,18 @@ const logout = async () => {
               <img className={styles.groupIcon1} alt="" src="/group.svg" />
             </button>
             {isWalletPopPopupOpen == true && (
-              <button className={styles.accountBalanceWalletBlack2Icon} onClick={logout}>Log Out</button>
+               <div>
+                <button className={styles.accountBalanceWalletBlack2Icon} onClick={logout}>Log Out</button>
+               {isEditingUsername ? (
+                 <input
+                   type="text"
+                   defaultValue={username}
+                   onBlur={(e) => handleUsernameChange(e.target.value)}
+                 />
+               ) : (
+                 <div className={styles.username} onClick={handleEditUsername}>{username}</div>
+               )}
+              </div>
             )
 }
             {isWalletPopPopupOpen == false && (
