@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Auctions1.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor, HttpAgent } from "@dfinity/agent";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 const Auctions1 = ({
   postPicture,
@@ -18,12 +18,34 @@ const Auctions1 = ({
   category,
   postId,
   pictureId,
+  creator = "Anonymous",  // set default value
 }) => {
 
-  const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
   const navigate = useNavigate();
+  let canisterId
+  switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+   canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
+  break;
+    default:
+  canisterId = "bd3sg-teaaa-aaaaa-qaaba-cai";
+  // canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  break;
+  }
   // const agent = new HttpAgent({ host: "https://ic0.app" });
-  const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  // const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  let agent;
+
+switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+        agent = new HttpAgent({ host: "https://ic0.app" }); // mainnet
+        break;
+    default:
+        agent = new HttpAgent({host : "http://127.0.0.1:8000"}); // local
+        // agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        break;
+}
+
   agent.fetchRootKey();
   const canister = Actor.createActor(canisterIdlFactory, {
     agent,
@@ -35,6 +57,7 @@ const Auctions1 = ({
    // New state variable for timer
    const [timer, setTimer] = useState(timerValue); // Initialize with the prop timerValue
   
+   const [Author, setAuthor] = useState(null);
   //  Function to open user profile
   const userProfileClick = useCallback(() => {
     console.log("Opening user profile");
@@ -81,13 +104,13 @@ const Auctions1 = ({
     }
   };
 
+
   // const history = useHistory();
 const onAuctionClick = useCallback(() => {
   console.log("Auction clicked");
   console.log("pic id:", pictureId);
   console.log("Auction clicked, navigating to", `/view-post/${postId}/${pictureId}`);
   navigate(`/view-post/${postId}/${pictureId}`);}, [navigate, postId, pictureId]);
-  console.log("cat:", category);
 
 
   return (
@@ -170,8 +193,8 @@ const onAuctionClick = useCallback(() => {
           </div>
         </div>
         <div className={styles.timeGainedParent}>
-          <div className={styles.timeGained} onClick={userProfileClick}>@alexir</div>
-          <div className={styles.div1}>{category}</div>
+          <div className={styles.timeGained} onClick={userProfileClick}>{creator}</div>
+          <div className={styles.div1} >{category}</div>
         </div>
       </div>
     </div>

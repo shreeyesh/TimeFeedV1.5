@@ -25,6 +25,13 @@ actor class TimeFeedImpl() {
   likes: Nat;
   dislikes: Nat;
 };
+
+type Reply = {
+  id: Nat;
+  content: Text;
+  creator: Principal;
+  createdAt: Nat;
+};
 //   func natHash(key: Nat): Hash.Hash {
 //   // Simple hash function that returns the key value as the hash value
 //   return key
@@ -53,9 +60,9 @@ actor class TimeFeedImpl() {
       category = category;
       creator = caller;
       dislikes = 10;
-      // image_url = image_url;
       likes = 10;
       timer = 100;
+      replies = []; // Initialize the replies array as empty
     };
     posts.put(post_id,post);
     nextId += 1;
@@ -72,11 +79,11 @@ actor class TimeFeedImpl() {
   };
 // };
 
-public shared({ caller }) func setUsername(newUsername: Text) : async () {
+public shared func setUsername(caller : Principal, newUsername : Text ) : async () {
     usernames.put(caller, newUsername);
 };
 
-public shared({ caller }) func getUsername() : async ?Text {
+public shared func getUsername({ caller : Principal }) : async ?Text {
     return usernames.get(caller);
 };
 
@@ -96,6 +103,7 @@ public shared({ caller }) func upvote(post_id: Nat) : async () {
         timer = post.timer;
         likes = post.likes + 1;
         dislikes = post.dislikes;
+        replies = []; // Initialize the replies array as empty
       };
       posts.put(post_id, updatedPost);
       adjust_timer(post_id, 1);

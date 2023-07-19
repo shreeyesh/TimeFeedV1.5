@@ -7,6 +7,8 @@ import PostsContainer from "../components/PostsContainer";
 import FOLLOWINGOVERLAY from "../components/FOLLOWINGOVERLAY";
 import styles from "./UserProfile.module.css";
 import Header1 from "../components/Header1";
+import Auctions1 from "../components/Auctions1";
+import AuctionRow from "../components/AuctionRow";
 const UserProfile = () => {
   const navigate = useNavigate();
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
@@ -31,6 +33,23 @@ const UserProfile = () => {
   const closeFOLLOWINGOVERLAY = useCallback(() => {
     setFOLLOWINGOVERLAYOpen(false);
   }, []);
+  
+  const [showRecent, setShowRecent] = useState(false);
+
+  const handleButtonClick = () => {
+    console.log("Toggling posts");
+    setShowRecent(!showRecent);
+    toggleRecentPosts(); // Instead of calling setShowRecent(!showRecent);
+  }
+
+  const posts = [ 
+    { id: 1, title: 'title1', content: 'content1' },
+    { id: 2, title: 'title2', content: 'content2' },
+    { id: 3, title: 'title3', content: 'content3' },
+    { id: 4, title: 'title4', content: 'content4' },
+    { id: 5, title: 'title5', content: 'content5' },
+    { id: 6, title: 'title6', content: 'content6' },
+  ]
 
   return (
     <>

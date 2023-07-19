@@ -19,14 +19,33 @@ const ViewPost = () => {
   const [description, setDescription] = useState("");
   const [timer, setTimer] = useState("");
   const [category, setCategory] = useState("");
+  const [creatorUsername, setCreatorUsername] = useState("");
 
   let { postId, pictureId } = useParams();
 console.log("postId : ",postId);
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
 
-  const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
-  // const agent = new HttpAgent({ host: "https://ic0.app" });
-  const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  let canisterId
+  switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+   canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
+  break;
+    default:
+  canisterId = "bd3sg-teaaa-aaaaa-qaaba-cai";
+  break;
+  }
+  let agent;
+  console.log("env : ",process.env.REACT_APP_NODE_ENV);
+
+switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+        agent = new HttpAgent({ host: "https://ic0.app" }); // mainnet
+        break;
+    default:
+        agent = new HttpAgent({host : "http://127.0.0.1:8000"}); // local
+        // agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        break;
+}  // const agent = new HttpAgent({ host: "https://ic0.app" });
   agent.fetchRootKey();
   const canister = Actor.createActor(canisterIdlFactory, {
     agent,
@@ -41,11 +60,14 @@ console.log("postId : ",postId);
       const post = response[0]
       console.log("Post:", post);
       if (post) {
+        const creatorUsername = await canister.getUsername({ caller: post.creator });
+        console.log("creatorUsername:", creatorUsername[0]);
         setHeading(post.title);
         setDescription(post.content);
         setCategory(post.category);
         setTimer(post.timer);
         setPost(post);
+        setCreatorUsername(creatorUsername[0]);
       }
       // setPost(post);
     } catch (error) {
@@ -86,6 +108,7 @@ console.log("postId : ",postId);
                         key={post.id}
                         postId={post ? post.id : null} // Pass postId as prop
                         postPicture={`/image-${45 + Number(pictureId)}@2x.png`} 
+                        // postPicture={`/timefeedlowresolutionlogoblackonwhitebackground3.png`} 
                         mutualpfp1="/image-2912@2x.png"
                         mutualpfp2="/image-2913@2x.png"
                         mutualpfp3="/image-2914@2x.png"
@@ -96,12 +119,13 @@ console.log("postId : ",postId);
                         description={description}
                         // desc2={post.desc2 || "Europe led by Germany is needed..."}
                         category={category}
+                        creator={creatorUsername} 
                     />
                     )}
                   </div>
                 </div>
               </div>
-              <UserCard />
+              <UserCard  creatorUsername={creatorUsername}/>
               <button className={styles.vuesaxlineararrowRight}>
                 <div className={styles.arrowRight}>
                   <img
@@ -192,8 +216,8 @@ console.log("postId : ",postId);
                   <div className={styles.inputleftaddon}>
                     <p
                       className={styles.alexRodrigues}
-                    >{`Alex Rodrigues`}</p>
-                    <p className={styles.iFeelLike}>@alexir</p>
+                    >{creatorUsername} </p>
+                    <p className={styles.iFeelLike}>@{creatorUsername} </p>
                   </div>
                   <div
                     className={styles.textPlaceholder}

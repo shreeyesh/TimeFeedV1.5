@@ -10,7 +10,6 @@ const SearchResultPopup = ({ filteredPosts, isOpen }) => {
         navigate(`/view-post/${postId}/${pictureId}`);
     }, [navigate]);
 
-    console.log("filteredPosts in pop : ",filteredPosts);
 
     if (!isOpen) {
         return null;

@@ -4,6 +4,12 @@
     "tf_backend": {
       "type": "motoko",
       "main": "src/tf_backend/main.mo"
+    },
+    "tf_frontend_assets": {
+      "type": "assets",
+      "source": [
+        "src/tf_frontend/build"
+      ]
     }
   },
   "defaults": {

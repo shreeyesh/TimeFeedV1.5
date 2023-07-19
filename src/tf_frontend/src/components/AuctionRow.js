@@ -19,13 +19,17 @@ const AuctionRow = ({ handleButtonClick: toggleRecentPosts , searchTerm, refresh
   const [creator, setCreator] = useState("");
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [downvotes, setDownvotes] = useState(0);
+  const [loading, setLoading] = useState(true);
+  
+
   let canisterId
   switch(process.env.REACT_APP_NODE_ENV) {
     case 'production':
    canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
   break;
     default:
-  canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  canisterId = "bd3sg-teaaa-aaaaa-qaaba-cai";
+  // canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
   break;
   }
   // const agent = new HttpAgent({ host: "https://ic0.app" });
@@ -38,7 +42,8 @@ switch(process.env.REACT_APP_NODE_ENV) {
         agent = new HttpAgent({ host: "https://ic0.app" }); // mainnet
         break;
     default:
-        agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        agent = new HttpAgent({host : "http://127.0.0.1:8000"}); // local
+        // agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
         break;
 }
 
@@ -85,44 +90,83 @@ switch(process.env.REACT_APP_NODE_ENV) {
     }
   };
 
+  
+
   const fetchAllPosts = async () => {
     try {
       const promises = [];
       if (postCount !== null && postCount !== undefined) {
-      for (let i = postCount - BigInt(1); i >= 0; i--) {
-        promises.push(canister.get_post(BigInt(i)));
+        for (let i = postCount - BigInt(1); i >= 0; i--) {
+          promises.push(canister.get_post(BigInt(i)));
+        }
       }
-    }
       const postsData = await Promise.all(promises);
 
-      // Add the pictureId here:
       const allPosts = postsData.map((response, index) => {
         if (response[0] === null) {
           console.log("Null post:", index);
           return{...postsDummy[0], pictureId: index};
         }
         const post = response[0];
-        return {...post, pictureId: index};
+        return {...post, pictureId: index, creatorUsername: "Loading..."};
       });
 
-      // const allPosts = postsData.map((response) => response[0]);
-
-      // Sort posts by id in descending order and set recentPosts
-      const sortedByIdPosts = [...allPosts];
-      sortedByIdPosts.sort((postA, postB) => (postB.id > postA.id) ? 1 : ((postB.id < postA.id) ? -1 : 0));
-      setRecentPosts(sortedByIdPosts);
-      console.log("Recent posts:", sortedByIdPosts);
-
-      // Sort the posts in descending order of timer value and set posts
-      const sortedByTimerPosts = [...allPosts];
-      sortedByTimerPosts.sort((postA, postB) => (postB.timer > postA.timer) ? 1 : ((postB.timer < postA.timer) ? -1 : 0));
-      setPosts(sortedByTimerPosts);
-      console.log("All posts:", sortedByTimerPosts);
+      // Fetch usernames right after getting the posts
+      fetchUsernames(allPosts);
     } catch (error) {
       console.error("Error fetching post details:", error);
     }
+};
 
-  };
+const fetchUsernames = async (allPosts) => {
+  const promises = allPosts.map(async (post) => {
+    if (post !== null) {
+      const creatorUsername = await canister.getUsername({ caller: post.creator });
+      console.log(`Post ${post.id} has creator username: ${creatorUsername}`);
+      return creatorUsername && creatorUsername.length ? creatorUsername : "Anonymous";
+    } else {
+      return "Anonymous";
+    }
+  });
+
+  const usernames = await Promise.all(promises);
+
+  const updatedPosts = allPosts.map((post, index) => {
+    return {
+      ...post,
+      creatorUsername: usernames[index],
+    };
+  });
+
+  // Sort posts by id in descending order and set recentPosts
+  const sortedByIdPosts = [...updatedPosts];
+  sortedByIdPosts.sort((postA, postB) => (postB.id > postA.id) ? 1 : ((postB.id < postA.id) ? -1 : 0));
+  setRecentPosts(sortedByIdPosts);
+  console.log("Recent posts:", sortedByIdPosts);
+
+  // Sort the posts in descending order of timer value and set posts
+  const sortedByTimerPosts = [...updatedPosts];
+  sortedByTimerPosts.sort((postA, postB) => (postB.timer > postA.timer) ? 1 : ((postB.timer < postA.timer) ? -1 : 0));
+  setPosts(sortedByTimerPosts);
+  console.log("All posts:", sortedByTimerPosts);
+
+  setLoading(false); // Set loading to false once all usernames are fetched
+};
+
+
+
+// UseEffect to fetch usernames
+useEffect(() => {
+  // fetchUsernames();
+  // Set up timer to fetch usernames every 20 minutes
+  const timerId = setInterval(() => {
+    fetchUsernames();
+  }, 20 * 60 * 1000); // 20 minutes in milliseconds
+
+  // Clean up function
+  return () => clearInterval(timerId);
+}, []); 
+
 
       // const { searchTerm } = useContext(SearchContext);
       useEffect(() => {
@@ -139,8 +183,6 @@ switch(process.env.REACT_APP_NODE_ENV) {
       post.title &&
       post.title.trim().toLowerCase().includes(searchTerm.trim().toLowerCase())
     );   
-    console.log("Filtered posts:", filteredPosts);  
-    console.log("Search term:", searchTerm);
   
   
   
@@ -149,7 +191,7 @@ switch(process.env.REACT_APP_NODE_ENV) {
   }, []);
   
   useEffect(() => {
-    fetchAllPosts();
+    // fetchAllPosts();
     const intervalId = setInterval(fetchAllPosts, 5000); // fetch every 5 seconds
      // cleanup function
   return () => clearInterval(intervalId);
@@ -157,58 +199,63 @@ switch(process.env.REACT_APP_NODE_ENV) {
 
   return (
     <div className={styles.auctionsParent}>
-    <SearchResultPopup filteredPosts={filteredPosts} isOpen={isPopupOpen} />
-    <button className={styles.toggle} onClick={handleButtonClick}>
-      {showRecent ? 'TOP' : 'RECENT'}
-    </button>
-    {showRecent ? (
-      recentPosts.map((post, index) => (
-        <div key={post.id}>
-          {/* <Link to={`/view-post/${post.id}/${post.pictureId}`}> */}
-            <Auctions1
-              post = {post}
-              postId={post.id}
-              pictureId={post.pictureId}
-              postPicture={`/image-${45 + post.pictureId}@2x.png`}
-              mutualpfp1="/image-2912@2x.png"
-              mutualpfp2="/image-2913@2x.png"
-              mutualpfp3="/image-2914@2x.png"
-              mutualpfp4="/image-2915@2x.png"
-              mutualpfp5="/image-2916@2x.png"
-              timerValue={post.timer.toString()}
-              heading={post.title}
-              description={post.content}
-              category={post.category}
-            />
-          {/* </Link> */}
-        </div>
-      ))
-    ) : (
-      posts.map((post, index) => (
-        post !== null ? (
-          <div key={post.id}>
-            {/* <Link to={`/view-post/${post.id}/${post.pictureId}`}> */}
-              <Auctions1
-                postId={post.id}
-                pictureId={post.pictureId}
-                postPicture={`/image-${45 + post.pictureId}@2x.png`}
-                mutualpfp1="/image-2912@2x.png"
-                mutualpfp2="/image-2913@2x.png"
-                mutualpfp3="/image-2914@2x.png"
-                mutualpfp4="/image-2915@2x.png"
-                mutualpfp5="/image-2916@2x.png"
-                timerValue={post.timer.toString()}
-                heading={post.title}
-                description={post.content}
-                category={post.category}
-              />
-            {/* </Link> */}
-          </div>
-        ) : null
-      ))
-    )}
-  </div>
+      <SearchResultPopup filteredPosts={filteredPosts} isOpen={isPopupOpen} />
+      <button className={styles.toggle} onClick={handleButtonClick}>
+        {showRecent ? 'TOP' : 'RECENT'}
+      </button>
+      {loading ? (
+        <div>Loading posts...</div>
+      ) : (
+        showRecent ? (
+          recentPosts.map((post, index) => (
+            post !== null && (
+              <div key={post.id}>
+                <Auctions1
+                  post = {post}
+                  postId={post.id}
+                  pictureId={post.pictureId}
+                  postPicture={`/image-${45 + post.pictureId}@2x.png`}
+                  mutualpfp1="/image-2912@2x.png"
+                  mutualpfp2="/image-2913@2x.png"
+                  mutualpfp3="/image-2914@2x.png"
+                  mutualpfp4="/image-2915@2x.png"
+                  mutualpfp5="/image-2916@2x.png"
+                  timerValue={post.timer ? post.timer.toString() : ''}
+                  heading={post.title}
+                  description={post.content}
+                  category={post.category}
+                  creator={post.creatorUsername || "anon"} 
+                />
+              </div>
+            )
+          ))
+        ) : (
+          posts.map((post, index) => (
+            post !== null && (
+              <div key={post.id}>
+                <Auctions1
+                  postId={post.id}
+                  pictureId={post.pictureId}
+                  postPicture={`/image-${45 + post.pictureId}@2x.png`}
+                  mutualpfp1="/image-2912@2x.png"
+                  mutualpfp2="/image-2913@2x.png"
+                  mutualpfp3="/image-2914@2x.png"
+                  mutualpfp4="/image-2915@2x.png"
+                  mutualpfp5="/image-2916@2x.png"
+                  timerValue={post.timer ? post.timer.toString() : ''}
+                  heading={post.title}
+                  description={post.content}
+                  category={post.category}
+                  creator={post.creatorUsername || "anon"} 
+                />
+              </div>
+            )
+          ))
+        )
+      )}
+    </div>
   );
+  
 
 };
 

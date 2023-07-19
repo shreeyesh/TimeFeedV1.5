@@ -29,7 +29,7 @@
 .frameChild {
   font-family: var(--inter-medium-16);
   font-size: var(--inter-medium-16-size);
-  width: 337px;
+  width: 20px;
   height: 56px;
 }
 .darkModeChild {
@@ -84,6 +84,21 @@
   overflow: hidden;
   flex-shrink: 0;
 }
+.menus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usernameInput {
+  min-width: 22px;
+  max-width: 22px;  
+  width: 10px;
+  height: 32px;
+  /* flex-grow: 1;   */
+  overflow: hidden;
+}
+
 .logout {
   position: relative;
   width: 32px;

@@ -8,9 +8,19 @@ export interface Post {
   'creator' : Principal,
   'content' : string,
   'likes' : bigint,
+  'category' : string,
+  'dislikes' : bigint,
 }
 export interface TimeFeedImpl {
-  'create_post' : ActorMethod<[string, string, [] | [string], string], bigint>,
+  'create_post' : ActorMethod<[string, string, string], bigint>,
+  'downvote' : ActorMethod<[bigint], undefined>,
+  'getUsername' : ActorMethod<[], [] | [string]>,
+  'get_downvotes' : ActorMethod<[bigint], bigint>,
   'get_post' : ActorMethod<[bigint], [] | [Post]>,
+  'get_post_count' : ActorMethod<[], bigint>,
+  'get_timer' : ActorMethod<[bigint], bigint>,
+  'get_upvotes' : ActorMethod<[bigint], bigint>,
+  'setUsername' : ActorMethod<[string], undefined>,
+  'upvote' : ActorMethod<[bigint], undefined>,
 }
 export interface _SERVICE extends TimeFeedImpl {}

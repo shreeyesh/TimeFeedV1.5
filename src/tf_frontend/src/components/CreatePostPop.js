@@ -6,18 +6,28 @@ import PostFormSelects from "./PostFormSelects";
 import { useNavigate } from "react-router-dom";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor, HttpAgent } from "@dfinity/agent";
+import { AuthClient } from "@dfinity/auth-client";
+import { Principal } from "@dfinity/principal";
 import styles from "./CreatePostPop.module.css";
 const CreatePostPop = ({ onClose }) => {
   const [headingBoxValue, setHeadingBoxValue] = useState("");
   const [textBoxValue, setTextBoxValue] = useState("");
   const [categoryValue, setCategoryValue] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(null); // Add a new state for username
+  const [principal, setPrincipal] = useState(null); // State for editing username
+  const [identity, setIdentity] = useState(null); // State for editing username
   // const [descBoxValue, setDescBoxValue] = useState("");
   const [isPostSuccessPopPopupOpen, setPostSuccessPopPopupOpen] =
     useState(false);
   const navigate = useNavigate();
   const openPostSuccessPopPopup = useCallback(() => {
-    console.log("here")
-        setPostSuccessPopPopupOpen(true);
+    if (!isLoggedIn) {
+      console.log("User must be logged in to create a post.", isLoggedIn);
+      alert("User must be logged in to create a post.");
+      return;
+    }
+    setPostSuccessPopPopupOpen(true);
     console.log("headingBoxValue : ",headingBoxValue)
     console.log("textBoxValue : ",textBoxValue)
     console.log("categoryValue : ",categoryValue)
@@ -54,24 +64,60 @@ const CreatePostPop = ({ onClose }) => {
     }
   };
 
+      // CHeck for username
+      useEffect(() => {
+        const checkLoginStatus = async () => {
+          const authClient = await AuthClient.create();
+          const isAuthenticated = await authClient.isAuthenticated();
+          if (isAuthenticated) {
+            const identity = authClient.getIdentity();
+            setIdentity(identity);
+            const principal = Principal.fromText(identity.getPrincipal().toString());
+            const usernameFromPrincipal = await canister.getUsername({ caller: principal });
+            setPrincipal(principal);
+            setUsername(usernameFromPrincipal);
+            console.log("usernameFromPrincipal : ",usernameFromPrincipal)
+            setIsLoggedIn(true);
+          }
+        };
+        checkLoginStatus();
+      }, []);
+
 
   // For IC integration
-  const canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
-    // const agent = new HttpAgent();
-    const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
-    agent.fetchRootKey();
-    const canister = Actor.createActor(canisterIdlFactory, {
-      agent,
-      canisterId,
-    });
+  let canisterId
+  switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+   canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
+  break;
+    default:
+  canisterId = "bd3sg-teaaa-aaaaa-qaaba-cai";
+  // canisterId = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+  break;
+  }
+  // const agent = new HttpAgent({ host: "https://ic0.app" });
+  // const agent = new HttpAgent({ host: "http://127.0.0.1:4943/" });
+  let agent;
+  console.log("env : ",process.env.REACT_APP_NODE_ENV);
 
-    console.log("Canister:", canister);
-    console.log("headingBoxValue : ",headingBoxValue)
-    console.log("textBoxValue : ",textBoxValue)
-    console.log("categoryValue : ",categoryValue)
+switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+        agent = new HttpAgent({ host: "https://ic0.app" ,identity: identity }); // mainnet
+        break;
+    default:
+        agent = new HttpAgent({host : "http://127.0.0.1:8000",identity: identity}); // local
+        // agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        break;
+}
+
+  agent.fetchRootKey();
+  const canister = Actor.createActor(canisterIdlFactory, {
+    agent,
+    canisterId,
+  });
+
     let categoryName = getCategoryName(categoryValue)
     // setCategory(categoryName);
-    console.log("category : ",categoryName)
 
     // Post function using the canister
     const post = async (title,content,category) => {
@@ -80,21 +126,24 @@ const CreatePostPop = ({ onClose }) => {
         // const image = "https://www.example.com/image.jpg";
         const result = await canister.create_post(title,content,category);
         console.log("Post result:", result);
+        let resultNumber = Number(result);
+        console.log("resultNumber : ",resultNumber)
+        const response = await canister.get_post(resultNumber);
+        // const response = await canister.get_post(result); // Removed BigInt()
+        console.log("Post response:", response);
+        const p = response[0].creator
+        console.log("p : ",p) 
+        console.log("p matches",p==principal)
+        const creator = Principal.fromUint8Array(p);
+        console.log("creator matches ",creator==principal)
+        console.log("creator : ",creator)
+        const author = await canister.getUsername({ caller: p });
+        console.log("username : ",author)
+        setUsername(author);
       } catch (error) {
         console.error("Error posting:", error);
       }
     };
-    // console.log("Post function:", post);
-    // image = "https://www.example.com/image.jpg";
-    // console.log("result: ",result)
-
-    // useEffect(() => {
-    //   const content = textBoxValue;
-    //   const title = headingBoxValue;
-    //   const category = getCategoryName(categoryValue);
-    //   // const image = "Hello world!";
-    //   post(title,content, category);
-    // }, []);
 
   return (
     <>
@@ -107,8 +156,8 @@ const CreatePostPop = ({ onClose }) => {
             onClick={openPostSuccessPopPopup}
 
           >
+            {/* <div className={styles.text}>{username}</div> */}
             <div className={styles.text}>POST</div>
-            {/* <div className={styles.text}>POST</div> */}
           </button>
           <PostFormSelects
           headingBoxValue={headingBoxValue} 

@@ -1,10 +1,10 @@
 import styles from "./UserCard.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState,useCallback } from "react";
-const UserCard = () => {
+const UserCard = ({creatorUsername}) => {
     const navigate = useNavigate();
     const [isFOLLOWINGOVERLAYOpen, setFOLLOWINGOVERLAYOpen] = useState(false);
-
+    console.log("creatorUsername : ",creatorUsername);
     const profileClick = useCallback(() => {
         navigate("/userprofile");
       }, [navigate]);
@@ -99,10 +99,10 @@ const UserCard = () => {
                   <div className={styles.frameDiv}>
                     <div className={styles.auctionsWrapper}>
                       <div className={styles.name}>
-                        Alex Rodrigues
+                        {creatorUsername}
                       </div>
                       <div className={styles.username}>
-                        @alexir
+                        @{creatorUsername}
                       </div>
                     </div>
                     <div className={styles.frameWrapper1}>
