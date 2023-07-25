@@ -14,18 +14,7 @@
   background-repeat: no-repeat;
   background-position: top;
 }
-/* .notificationBingIcon {
-  position: absolute;
-  height: 2.73%;
-  width: 1.94%;
-  top: 5.96%;
-  right: 9.65%;
-  bottom: 91.31%;
-  left: 88.4%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-} */
+
 .frameChild {
   font-family: var(--inter-medium-16);
   font-size: var(--inter-medium-16-size);
@@ -77,27 +66,13 @@
   overflow: hidden;
   flex-shrink: 0;
 }
-.username {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+
 .menus {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.usernameInput {
-  min-width: 22px;
-  max-width: 22px;  
-  width: 10px;
-  height: 32px;
-  /* flex-grow: 1;   */
-  overflow: hidden;
-}
 
 .logout {
   position: relative;

@@ -1,15 +1,56 @@
 type TimeFeedImpl = 
  service {
-   create_post: (text, text, opt text, text) -> (nat);
-   get_post: (nat) -> (opt Post);
+   createReply: (nat, text) -> (nat);
+   create_post: (text, text, text) -> (nat);
+   dislikeReply: (nat, nat) -> (bool);
+   downvote: (nat) -> ();
+   getUsername: (record {caller: principal;}) -> (opt text);
+   get_all_posts: () -> (vec PostShared);
+   get_downvotes: (nat) -> (nat);
+   get_post: (nat) ->
+    (opt
+      record {
+        category: text;
+        content: text;
+        creator: principal;
+        dislikes: nat;
+        id: nat;
+        likes: nat;
+        replies: nat;
+        timer: int;
+        title: text;
+      });
+   get_post_count: () -> (nat);
+   get_posts_by_category: (text) -> (vec PostShared);
+   get_posts_by_user: (principal) -> (vec PostShared);
+   get_replies: (nat) -> (opt vec record {
+                                    nat;
+                                    Reply;
+                                  });
+   get_timer: (nat) -> (int);
+   get_upvotes: (nat) -> (nat);
+   likeReply: (nat, nat) -> (bool);
+   setUsername: (principal, text) -> ();
+   upvote: (nat) -> ();
  };
-type Post = 
+type Reply = 
  record {
    content: text;
    creator: principal;
+   dislikes: nat;
    id: nat;
    likes: nat;
-   timer: nat;
+ };
+type PostShared = 
+ record {
+   category: text;
+   content: text;
+   creator: principal;
+   dislikes: nat;
+   id: nat;
+   likes: nat;
+   repliesCount: nat;
+   timer: int;
    title: text;
  };
 service : () -> TimeFeedImpl

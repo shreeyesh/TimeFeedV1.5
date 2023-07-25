@@ -1,18 +1,75 @@
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
+import { useNavigate,useParams } from "react-router-dom";
 import CreatePostPop from "../components/CreatePostPop";
 import PortalPopup from "../components/PortalPopup";
 import Header from "../components/Header";
 import PostsContainer from "../components/PostsContainer";
-import FOLLOWINGOVERLAY from "../components/FOLLOWINGOVERLAY";
 import styles from "./UserProfile.module.css";
-import Header1 from "../components/Header1";
-import Auctions1 from "../components/Auctions1";
-import AuctionRow from "../components/AuctionRow";
+import { AuthClient } from "@dfinity/auth-client";
+import { Principal } from "@dfinity/principal";
+import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
+import { Actor,HttpAgent } from "@dfinity/agent";
+
 const UserProfile = () => {
   const navigate = useNavigate();
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
   const [isFOLLOWINGOVERLAYOpen, setFOLLOWINGOVERLAYOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [identity, setIdentity] = useState(null); // State for editing username
+  const [principal, setPrincipal] = useState(null); // State for editing username
+  const [username, setUsername] = useState(null);
+  const [creatorName, setCreatorName] = useState(null);
+  let {caller} = useParams();
+  // setPrincipal(caller);
+
+  console.log("caller : ",principal);
+  
+   // CHeck for username
+   useEffect(() => {
+    const getUsernameFromCaller = async () => {
+      if (caller) {
+        const principal = Principal.fromText(caller); // Assuming caller is in the form of a string
+        const usernameFromPrincipal = await canister.getUsername({ caller: principal });
+        setPrincipal(principal);
+        setCreatorName(usernameFromPrincipal);
+        console.log("usernameFromPrincipal : ",usernameFromPrincipal);
+        setIsLoggedIn(true);
+      }
+      else {
+        setIsLoggedIn(false);
+      }
+    };
+  
+    getUsernameFromCaller();
+  }, [caller]);  // useEffect is triggered every time caller changes
+
+let canisterId
+  switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+   canisterId = "bh5vh-sqaaa-aaaap-abekq-cai";
+  break;
+    default:
+  canisterId = "bd3sg-teaaa-aaaaa-qaaba-cai";
+  break;
+  }
+  let agent;
+  console.log("env : ",process.env.REACT_APP_NODE_ENV);
+
+switch(process.env.REACT_APP_NODE_ENV) {
+    case 'production':
+        agent = new HttpAgent({ host: "https://ic0.app" , identity:identity}); // mainnet
+        break;
+    default:
+        agent = new HttpAgent({host : "http://127.0.0.1:8000"}); // local
+        // agent = new HttpAgent({ host: "http://127.0.0.1:4943/" }); // local
+        break;
+}  // const agent = new HttpAgent({ host: "https://ic0.app" });
+  agent.fetchRootKey();
+  const canister = Actor.createActor(canisterIdlFactory, {
+    agent,
+    canisterId,
+  });
 
   const onTradeClick = useCallback(() => {
     navigate("/sectionhomepage");
@@ -55,6 +112,8 @@ const UserProfile = () => {
     <>
       <div className={styles.userprofile}>
         <Header
+          setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setUsername={setUsername} username={username}
+          identity={identity} setIdentity={setIdentity} 
           productIds="/account-circle-black-24dp-2-12.svg"
           onTradeClick={onTradeClick}
           openCreatePostPopPopup={openCreatePostPopPopup}
@@ -107,7 +166,11 @@ const UserProfile = () => {
             src="/vuesaxlineartetherusdt.svg"
           />
           <PostsContainer />
-          <div className={styles.alexRodrigues}>Alex Rodrigues</div>
+         { caller ? (
+          <div className={styles.alexRodrigues}>{creatorName}</div>
+            ) : (
+          <div className={styles.alexRodrigues}>User not Logged in</div>
+            )}
           <div className={styles.posts}>
             <div className={styles.posts1}>POSTS</div>
             <div className={styles.div1}>15</div>

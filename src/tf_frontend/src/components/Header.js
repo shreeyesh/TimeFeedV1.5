@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import CreatePostPop from "./CreatePostPop";
 import PortalPopup from "./PortalPopup";
@@ -10,11 +10,12 @@ import { Actor,HttpAgent } from "@dfinity/agent";
 
 
 
-  const Header = ({ setSearchTerm }) => {
+  const Header = ({ setIsLoggedIn, isLoggedIn,setSearchTerm, username,setUsername,setIdentity }) => {
   const navigate = useNavigate();
+  console.log("setusername",typeof setUsername); // should print "function"
   const [isCreatePostPopPopupOpen, setCreatePostPopPopupOpen] = useState(false);
   const [isWalletPopPopupOpen, setWalletPopPopupOpen] = useState(false);
-  const [username, setUsername] = useState(null); // Add a new state for username
+  // const [username, setUsername] = useState(null); // Add a new state for username
   const [isEditingUsername, setIsEditingUsername] = useState(false); // State for editing username
   const [principal, setPrincipal] = useState(null); // State for editing username
   let canisterId
@@ -68,8 +69,13 @@ switch(process.env.REACT_APP_NODE_ENV) {
 
   const onAccountCircleBlack24dp2Click = useCallback(() => {
     // login();
-    navigate("/userprofile");
-  }, [navigate]);
+    if (!isLoggedIn) {
+      console.log("User must be logged in to check user profile", isLoggedIn);
+      alert("User must be logged in to check user profile");
+      return;
+    }
+    navigate(`/userprofile/${principal}`);}, [navigate, principal]);
+
   
   const onWalletClick = useCallback(() => {
     login();
@@ -80,24 +86,34 @@ switch(process.env.REACT_APP_NODE_ENV) {
 
   console.log("canister : ",canister);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const inputRef = useRef(null);
 
-  // check login status on component mount
+  // CHeck for username
   useEffect(() => {
     const checkLoginStatus = async () => {
       const authClient = await AuthClient.create();
       const isAuthenticated = await authClient.isAuthenticated();
       if (isAuthenticated) {
         const identity = authClient.getIdentity();
+        setIdentity(identity);
         const principal = Principal.fromText(identity.getPrincipal().toString());
-        const usernameFromPrincipal = await canister.getUsername({ caller: principal });
+        const usernameFromPrincipal = await canister.getUsername( {caller : principal} );
         setPrincipal(principal);
         setUsername(usernameFromPrincipal);
+        // Username = usernameFromPrincipal;
+        console.log("usernameFromPrincipal : ",usernameFromPrincipal)
         setIsLoggedIn(true);
       }
+      else {
+        setIsLoggedIn(false);
+      }
     };
-    checkLoginStatus();
-  }, []);
+    const interval = setInterval(checkLoginStatus, 5000); // 5000 milliseconds = 5 seconds
+
+  // clear interval on component unmount
+  return () => clearInterval(interval);
+}, []);
 
   const login = async () => {
     const authClient = await AuthClient.create();
@@ -106,7 +122,7 @@ switch(process.env.REACT_APP_NODE_ENV) {
         const identity = authClient.getIdentity();
         const principal = Principal.fromText(identity.getPrincipal().toString());
         console.log("principal : ",principal);
-        let usernameFromPrincipal = await canister.getUsername({ caller: principal }); 
+        let usernameFromPrincipal = await canister.getUsername({caller : principal} ); 
         setPrincipal(principal);
         console.log("usernameFromPrincipal : ",usernameFromPrincipal);
         if (!usernameFromPrincipal || usernameFromPrincipal.length === 0) {
@@ -114,7 +130,7 @@ switch(process.env.REACT_APP_NODE_ENV) {
           // So you should show a popup to ask the user to set a username
           const newUsername = "Anonymous";
           await canister.setUsername( principal ,newUsername);
-          usernameFromPrincipal = await canister.getUsername({ caller: principal }); 
+          usernameFromPrincipal = await canister.getUsername({caller : principal} ); 
           setUsername(newUsername);
           setIsEditingUsername(false);
         }
@@ -142,6 +158,7 @@ switch(process.env.REACT_APP_NODE_ENV) {
       alert("Username must contain at least one character.");
     }
   };
+
 
 const logout = async () => {
   const authClient = await AuthClient.create();
@@ -196,33 +213,36 @@ const logout = async () => {
   </button>
   
   {isLoggedIn ? (
-    <div className={styles.menus}>
-      <button className={styles.accountBalanceWalletBlack2Icon} onClick={logout}>Log Out</button>
-      {isEditingUsername ? (
-        <div className={styles.username}>
-        <input className={styles.usernameInput}
-          type="text"
-          defaultValue={username}
-          onBlur={(e) => handleUsernameChange(e.target.value)}
-          minLength={1}
-        />
-        </div>
-      ) : (
-        <div className={styles.username}>
-        <div className={styles.username} onClick={handleEditUsername}>{username || 'edit username'}</div>
-        <button onClick={handleEditUsername}>Edit</button>
-        </div>
-      )}
-    </div>
-  ) : (
-    <button onClick={onWalletClick} >
-      <img
-        className={styles.accountBalanceWalletBlack2Icon}
-        alt=""
-        src="/account-balance-wallet-black-24dp-5-1.svg"
+  <div className={styles.menus}>
+    <button className={styles.accountBalanceWalletBlack2Icon} onClick={logout}>Log Out</button>
+    {isEditingUsername ? (
+      <div className={styles.username}>
+      <input className={styles.usernameInput}
+        ref={inputRef}
+        type="text"
+        defaultValue={username}
+        onBlur={(e) => handleUsernameChange(e.target.value)}
+        minLength={1}
       />
-    </button>
-  )}
+      </div>
+    ) : (
+      <div >
+      <div className={styles.username} onClick={handleEditUsername} title={username || 'edit username'}>{username || 'edit username'}</div>
+      <button className={styles.edit} onClick={handleEditUsername}>Edit</button>
+      </div>
+    )}
+  </div>
+) : (
+  <button onClick={onWalletClick} >
+    <img
+      className={styles.accountBalanceWalletBlack2Icon}
+      alt=""
+      src="/account-balance-wallet-black-24dp-5-1.svg"
+    />
+    <p>Login</p>
+  </button>
+)}
+
 </div>
 
         </div>
@@ -233,7 +253,8 @@ const logout = async () => {
           placement="Centered"
           onOutsideClick={closeCreatePostPopPopup}
         >
-          <CreatePostPop onClose={closeCreatePostPopPopup} />
+          <CreatePostPop isLoggedIn
+          ={isLoggedIn} onClose={closeCreatePostPopPopup} />
         </PortalPopup>
       )}
     </>

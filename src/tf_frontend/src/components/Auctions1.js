@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Auctions1.module.css";
 import { idlFactory as canisterIdlFactory } from "../tf_backend.did.js";
 import { Actor, HttpAgent } from "@dfinity/agent";
+import { AuthClient } from "@dfinity/auth-client";
+import { Principal } from "@dfinity/principal";
 import React, { useState, useCallback, useEffect } from "react";
 
 const Auctions1 = ({
@@ -18,10 +20,47 @@ const Auctions1 = ({
   category,
   postId,
   pictureId,
+  caller,
   creator = "Anonymous",  // set default value
 }) => {
 
   const navigate = useNavigate();
+     // New state variable for voting status
+     const [voteStatus, setVoteStatus] = useState(null); // null - no vote, 1 - upvoted, -1 - downvoted
+     // New state variable for timer
+     const [timer, setTimer] = useState(timerValue); // Initialize with the prop timerValue
+     const [Author, setAuthor] = useState(null);
+     const [principal, setPrincipal] = useState(null); // State for editing username
+    const [identity, setIdentity] = useState(null); // State for editing username
+    const [username, setUsername] = useState(null); // Add a new state for username
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Add a new state for username
+  
+
+    // CHeck for username
+  useEffect(() => {
+    const checkLogin = async () => {
+      const authClient = await AuthClient.create();
+      const isAuthenticated = await authClient.isAuthenticated();
+      if (isAuthenticated) {
+        const identity = authClient.getIdentity();
+        setIdentity(identity);
+        const principal = Principal.fromText(identity.getPrincipal().toString());
+        const usernameFromPrincipal = await canister.getUsername( {caller : principal} );
+        setPrincipal(principal);
+        setUsername(usernameFromPrincipal);
+        // Username = usernameFromPrincipal;
+        setIsLoggedIn(true);
+      }
+      else {
+        setIsLoggedIn(false);
+      }
+    };
+    const interval = setInterval(checkLogin, 5000); // 5000 milliseconds = 5 seconds
+
+  // clear interval on component unmount
+  return () => clearInterval(interval);
+  }, []);
+  
   let canisterId
   switch(process.env.REACT_APP_NODE_ENV) {
     case 'production':
@@ -38,7 +77,7 @@ const Auctions1 = ({
 
 switch(process.env.REACT_APP_NODE_ENV) {
     case 'production':
-        agent = new HttpAgent({ host: "https://ic0.app" }); // mainnet
+        agent = new HttpAgent({ host: "https://ic0.app" , identity:identity}); // mainnet
         break;
     default:
         agent = new HttpAgent({host : "http://127.0.0.1:8000"}); // local
@@ -52,23 +91,21 @@ switch(process.env.REACT_APP_NODE_ENV) {
     canisterId,
   });
 
-   // New state variable for voting status
-   const [voteStatus, setVoteStatus] = useState(null); // null - no vote, 1 - upvoted, -1 - downvoted
-   // New state variable for timer
-   const [timer, setTimer] = useState(timerValue); // Initialize with the prop timerValue
-  
-   const [Author, setAuthor] = useState(null);
   //  Function to open user profile
   const userProfileClick = useCallback(() => {
     console.log("Opening user profile");
     // history.push("/profile");
-    navigate("/userprofile");
-  }, [navigate]);
-
+    // navigate("/userprofile/caller");
+    navigate(`/userprofile/${caller}`);}, [navigate, caller]);
 
    // Function to handle upvote
    const handleUpvote = async (postId) => {
     try {
+      if (!isLoggedIn) {
+        console.log("User must be logged in to upvote to a post.", isLoggedIn);
+        alert("User must be logged in to upvote to a post.");
+        return;
+      }
       // const postId = 0;
       await canister.upvote(BigInt(postId));
       console.log("Upvoted post with ID:", postId);
@@ -88,6 +125,11 @@ switch(process.env.REACT_APP_NODE_ENV) {
   // Function to handle downvote
   const handleDownvote = async (postId) => {
     try {
+      if (!isLoggedIn) {
+        console.log("User must be logged in to Downvote to a post.", isLoggedIn);
+        alert("User must be logged in to Downvote to a post.");
+        return;
+      }
       // const postId = 0;
       await canister.downvote(BigInt(postId));
       console.log("Downvoted post with ID:", postId);

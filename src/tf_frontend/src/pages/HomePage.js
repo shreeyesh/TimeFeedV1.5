@@ -10,6 +10,9 @@ import MobileCTAContainer from "../components/MobileCTAContainer";
 import styles from "./HomePage.module.css";
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [username,setUsername] = useState(null);
+  const [identity, setIdentity] = useState(null); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const onFrameButtonClick = useCallback(() => {
     const anchor = document.querySelector("[data-scroll-to='navbar']");
     if (anchor) {
@@ -211,7 +214,9 @@ const HomePage = () => {
           </div>
           <OpinionExplorerContainer />
           <div className={styles.fading} />
-          <Header setSearchTerm={setSearchTerm} />
+          <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} username={username} setUsername={setUsername}
+          identity={identity} setIdentity={setIdentity} 
+          />
          
         </div>
       </div>

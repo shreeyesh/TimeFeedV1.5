@@ -1,13 +1,13 @@
 import styles from "./UserCard.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState,useCallback } from "react";
-const UserCard = ({creatorUsername}) => {
+const UserCard = ({creatorUsername, pcaller}) => {
     const navigate = useNavigate();
     const [isFOLLOWINGOVERLAYOpen, setFOLLOWINGOVERLAYOpen] = useState(false);
     console.log("creatorUsername : ",creatorUsername);
+    console.log("pcaller : ",pcaller);
     const profileClick = useCallback(() => {
-        navigate("/userprofile");
-      }, [navigate]);
+      navigate(`/userprofile/${pcaller}`);}, [navigate, pcaller]);
       const openFOLLOWINGOVERLAY = useCallback(() => {
         setFOLLOWINGOVERLAYOpen(true);
       }, []);

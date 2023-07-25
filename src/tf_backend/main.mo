@@ -7,6 +7,10 @@ import Nat "mo:base/Nat";
 import Bool "mo:base/Bool";
 import Array "mo:base/Array";
 import Float "mo:base/Float";
+import List "mo:base/List";
+import Iter "mo:base/Iter";
+
+
 // import Http "mo:base/Http";
 
 // import Text "mo:base/Text";
@@ -24,31 +28,22 @@ actor class TimeFeedImpl() {
   timer : Int;
   likes: Nat;
   dislikes: Nat;
+  replies: HashMap.HashMap<Nat, Reply>;
 };
 
 type Reply = {
   id: Nat;
   content: Text;
   creator: Principal;
-  createdAt: Nat;
+  // createdAt: Nat;
+  likes: Nat;
+  dislikes: Nat;
 };
-//   func natHash(key: Nat): Hash.Hash {
-//   // Simple hash function that returns the key value as the hash value
-//   return key
-// };
+
   var posts : HashMap.HashMap<Nat, Post> = HashMap.HashMap<Nat, Post>(0, Int.equal, Int.hash);
   var nextId : Nat = 0;
   var rankings : HashMap.HashMap<Nat, Nat> = HashMap.HashMap<Nat, Nat>(0, Int.equal, Int.hash);
   var usernames : HashMap.HashMap<Principal, Text> = HashMap.HashMap<Principal, Text>(0, Principal.equal, Principal.hash);
-
-//   public func handleRequest(request : Http.Request) : async Http.Response {
-//  let responseHeaders = {
-//       #headers = {
-//         ("Access-Control-Allow-Origin", Text.fromArray(["http://localhost:3000"])),
-//         ("Access-Control-Allow-Methods", Text.fromArray(["POST, GET"])),
-//         ("Access-Control-Allow-Headers", Text.fromArray(["Accept, Authorization, Content-Type"]))
-//       };
-//  }
 
  // This function creates posts and assigns them a unique id
   public shared({ caller }) func create_post(title: Text,content: Text,  category: Text) : async Nat {
@@ -62,7 +57,7 @@ type Reply = {
       dislikes = 10;
       likes = 10;
       timer = 100;
-      replies = []; // Initialize the replies array as empty
+      replies = HashMap.HashMap<Nat, Reply>(0, Int.equal, Int.hash); // Initialize the replies hashmap as empty
     };
     posts.put(post_id,post);
     nextId += 1;
@@ -70,14 +65,99 @@ type Reply = {
   };
 
 
-  public shared func get_post(post_id: Nat) : async ?Post {
-    if (posts.get(post_id)!=null) {
-      return posts.get(post_id);
-    } else {
-      null;
-    }
+public shared func get_post(post_id: Nat) : async ?({id:Nat; content:Text; title:Text; category:Text; creator:Principal; timer:Int; likes:Nat; dislikes:Nat; replies:Nat}) {
+    switch(posts.get(post_id)) {
+        case(null) { return null; };
+        case(?post) {
+            return ?({id=post.id; content=post.content; title=post.title; category=post.category; creator=post.creator; timer=post.timer; likes=post.likes; dislikes=post.dislikes; replies=post.replies.size()});
+        };
+    };
+};
+
+type PostShared = {
+  id: Nat;
+  content: Text;
+  title: Text;
+  category: Text;
+  creator: Principal;
+  timer : Int;
+  likes: Nat;
+  dislikes: Nat;
+  repliesCount: Nat;
+};
+
+public shared func get_all_posts() : async [PostShared] {
+  var allPosts : [PostShared] = [];
+
+  for ((key, post) in posts.entries()) {
+    let p = post;
+    let postShared: PostShared = {
+      id = p.id;
+      content = p.content;
+      title = p.title;
+      category = p.category;
+      creator = p.creator;
+      timer = p.timer;
+      likes = p.likes;
+      dislikes = p.dislikes;
+      repliesCount = p.replies.size()
+    };
+    allPosts := Array.append< PostShared >(allPosts, [postShared]);
   };
-// };
+
+  return allPosts;
+};
+
+
+
+
+
+public shared func get_posts_by_user(user: Principal) : async [PostShared] {
+  var userPosts : [PostShared] = [];
+
+  for ((key, post) in posts.entries()) {
+    if (post.creator == user) {
+      let postShared: PostShared = {
+        id = post.id;
+        content = post.content;
+        title = post.title;
+        category = post.category;
+        creator = post.creator;
+        timer = post.timer;
+        likes = post.likes;
+        dislikes = post.dislikes;
+        repliesCount = post.replies.size()
+      };
+      userPosts := Array.append< PostShared >(userPosts, [postShared]);
+    };
+  };
+
+  return userPosts;
+};
+
+
+public shared func get_posts_by_category(category: Text) : async [PostShared] {
+  var categoryPosts : [PostShared] = [];
+
+  for ((key, post) in posts.entries()) {
+    if (post.category == category) {
+      let postShared: PostShared = {
+        id = post.id;
+        content = post.content;
+        title = post.title;
+        category = post.category;
+        creator = post.creator;
+        timer = post.timer;
+        likes = post.likes;
+        dislikes = post.dislikes;
+        repliesCount = post.replies.size()
+      };
+      categoryPosts := Array.append< PostShared >(categoryPosts, [postShared]);
+    };
+  };
+
+  return categoryPosts;
+};
 
 public shared func setUsername(caller : Principal, newUsername : Text ) : async () {
     usernames.put(caller, newUsername);
@@ -86,6 +166,57 @@ public shared func setUsername(caller : Principal, newUsername : Text ) : async 
 public shared func getUsername({ caller : Principal }) : async ?Text {
     return usernames.get(caller);
 };
+
+public shared func getCallerByUsername(username : Text) : async ?Principal {
+    let keys = usernames.keys();
+    for (key in keys) {
+        let val = usernames.get(key);
+        switch(val) {
+            case null { };
+            case (?v) {
+                if (v == username) {
+                    return ?key;  // Changed this line
+                };
+            };
+        };
+    };
+    return null;
+};
+
+
+// Reply to a post
+  public shared({caller}) func createReply(post_id: Nat, content: Text) : async Nat {
+    let postOption = posts.get(post_id);
+    switch (postOption) {
+      case null { return 0; };
+      case (?post) {
+        // The post exists. Create a reply.
+        let reply_id = nextId;
+        let reply : Reply = {
+          id = reply_id;
+          content = content;
+          creator = caller;
+          likes = 0;
+          dislikes = 0;
+        };
+        post.replies.put(reply_id, reply);  // Add the reply to the post's reply hashmap.
+        nextId += 1;
+        reply_id;
+      };
+    }
+  };
+
+public shared func get_replies(post_id: Nat) : async ?[(Nat, Reply)] {
+  switch (posts.get(post_id)) {
+    case null { return null; };
+    case (?post) { 
+      let replies: [(Nat, Reply)] = Iter.toArray(post.replies.entries());
+      return ?replies;
+    };
+  };
+};
+
+
 
 // Upvote a post
 public shared({ caller }) func upvote(post_id: Nat) : async () {
@@ -103,7 +234,7 @@ public shared({ caller }) func upvote(post_id: Nat) : async () {
         timer = post.timer;
         likes = post.likes + 1;
         dislikes = post.dislikes;
-        replies = []; // Initialize the replies array as empty
+        replies = post.replies 
       };
       posts.put(post_id, updatedPost);
       adjust_timer(post_id, 1);
@@ -118,7 +249,7 @@ public shared({ caller }) func downvote(post_id: Nat) : async () {
   switch (postOption) {
     case (null) { /* The post with provided id doesn't exist. Do nothing. */ };
     case (?post) {
-      // The post exists. Increment the likes count.
+      // The post exists. Increment the dislikes count.
       let updatedPost : Post = {
         id = post.id;
         content = post.content;
@@ -128,6 +259,7 @@ public shared({ caller }) func downvote(post_id: Nat) : async () {
         timer = post.timer;
         likes = post.likes ;
         dislikes = post.dislikes + 1;
+        replies = post.replies
       };
       posts.put(post_id, updatedPost);
       adjust_timer(post_id, -1);
@@ -152,6 +284,53 @@ public shared func get_downvotes(post_id: Nat) : async Nat {
   };
 };
 
+public shared({caller}) func likeReply(post_id: Nat, reply_id: Nat) : async Bool {
+  let postOption = posts.get(post_id);
+  switch (postOption) {
+    case null { return false; };
+    case (?post) {
+      switch (post.replies.get(reply_id)) {
+        case null { return false; };
+        case (?reply) {
+          let updatedReply : Reply = {
+            id = reply.id;
+            content = reply.content;
+            creator = reply.creator;
+            likes = reply.likes + 1;
+            dislikes = reply.dislikes;
+          };
+          post.replies.put(reply_id, updatedReply);
+          return true;
+        };
+      };
+    };
+  };
+};
+
+public shared({caller}) func dislikeReply(post_id: Nat, reply_id: Nat) : async Bool {
+  let postOption = posts.get(post_id);
+  switch (postOption) {
+    case null { return false; };
+    case (?post) {
+      switch (post.replies.get(reply_id)) {
+        case null { return false; };
+        case (?reply) {
+          let updatedReply : Reply = {
+            id = reply.id;
+            content = reply.content;
+            creator = reply.creator;
+            likes = reply.likes;
+            dislikes = reply.dislikes + 1;
+          };
+          post.replies.put(reply_id, updatedReply);
+          return true;
+        };
+      };
+    };
+  };
+};
+
+
 //   // create timer for each post
 //   // timer starts at 100
 //   // every time a post is upvoted, timer increases by 1
@@ -175,6 +354,7 @@ private func adjust_timer(post_id: Nat, adjustment: Int) {
                 likes = post.likes;
                 timer = newTimer;
                 dislikes = post.dislikes;
+                replies = post.replies
             };
             posts.put(post_id, updatedPost);
         };
@@ -190,10 +370,13 @@ public shared func get_timer(post_id: Nat) : async Int {
   };
 };
 
-private func delete_post(post_id: Nat) : ?Post {
-  let removedPost = posts.remove(post_id);
-  return removedPost;
-};
+// Get posts of a user
+
+
+// public shared func delete_post(post_id: Nat) : async ?Post {
+//   let removedPost = posts.remove(post_id);
+//   return removedPost;
+// };
 
 // Calculate rankings based on timeleft
 // public shared({caller}) func calculate_rankings() : async () {

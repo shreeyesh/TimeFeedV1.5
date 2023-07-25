@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.80caf3a3.css",
-    "main.js": "/static/js/main.5afff175.js",
+    "main.css": "/static/css/main.55b28971.css",
+    "main.js": "/static/js/main.bd340655.js",
     "static/media/auctions@3x.png": "/static/media/auctions@3x.aae159edb4f423bd7a7f.png",
     "static/media/Franklin Gothic Book Regular.ttf": "/static/media/Franklin Gothic Book Regular.6f812e9f5eeecf6e1d5c.ttf",
     "static/media/Franklin Gothic Medium Regular.ttf": "/static/media/Franklin Gothic Medium Regular.70fe52016259b73c607f.ttf",
     "index.html": "/index.html",
-    "main.80caf3a3.css.map": "/static/css/main.80caf3a3.css.map",
-    "main.5afff175.js.map": "/static/js/main.5afff175.js.map"
+    "main.55b28971.css.map": "/static/css/main.55b28971.css.map",
+    "main.bd340655.js.map": "/static/js/main.bd340655.js.map"
   },
   "entrypoints": [
-    "static/css/main.80caf3a3.css",
-    "static/js/main.5afff175.js"
+    "static/css/main.55b28971.css",
+    "static/js/main.bd340655.js"
   ]
 }

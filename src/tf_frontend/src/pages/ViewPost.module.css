@@ -820,8 +820,8 @@
   position: absolute;
   width: 30px;
   height: 17.8px;
-  left: 68.3%;
-  top: 35%;
+  left: 0.3%;
+  top: 135%;
 }
 .dislikes {
   position: absolute;
@@ -841,6 +841,9 @@
   padding: 20px; /* Adds padding inside the component for better appearance */
   display: flex;
   flex-direction: column; /* Ensures the comments are vertically stacked */
+}
+.commentMargin {
+  padding-bottom: 10px;
 }
 .commentWrapper,
 .replyWrapper {
@@ -1361,6 +1364,7 @@ margin-left: 40px; /* Indent replies */
   display: none;
 }
 .vectorIcon15 {
+  cursor: pointer;
   position: absolute;
   height: 34.67%;
   width: 4.21%;

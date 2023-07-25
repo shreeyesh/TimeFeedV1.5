@@ -9,11 +9,11 @@ import { Actor, HttpAgent } from "@dfinity/agent";
 import { AuthClient } from "@dfinity/auth-client";
 import { Principal } from "@dfinity/principal";
 import styles from "./CreatePostPop.module.css";
-const CreatePostPop = ({ onClose }) => {
+const CreatePostPop = ({ onClose , isLoggedIn, }) => {
   const [headingBoxValue, setHeadingBoxValue] = useState("");
   const [textBoxValue, setTextBoxValue] = useState("");
   const [categoryValue, setCategoryValue] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState(null); // Add a new state for username
   const [principal, setPrincipal] = useState(null); // State for editing username
   const [identity, setIdentity] = useState(null); // State for editing username
@@ -21,10 +21,19 @@ const CreatePostPop = ({ onClose }) => {
   const [isPostSuccessPopPopupOpen, setPostSuccessPopPopupOpen] =
     useState(false);
   const navigate = useNavigate();
+  console.log("isLoggedIn : ",isLoggedIn)
   const openPostSuccessPopPopup = useCallback(() => {
     if (!isLoggedIn) {
       console.log("User must be logged in to create a post.", isLoggedIn);
       alert("User must be logged in to create a post.");
+      return;
+    }
+    if (headingBoxValue.trim().length < 1) {
+      alert("Heading should have at least one character");
+      return;
+    }
+    if (textBoxValue.trim().length < 1) {
+      alert("Content should have at least one character");
       return;
     }
     setPostSuccessPopPopupOpen(true);
@@ -64,24 +73,30 @@ const CreatePostPop = ({ onClose }) => {
     }
   };
 
-      // CHeck for username
-      useEffect(() => {
-        const checkLoginStatus = async () => {
-          const authClient = await AuthClient.create();
-          const isAuthenticated = await authClient.isAuthenticated();
-          if (isAuthenticated) {
-            const identity = authClient.getIdentity();
-            setIdentity(identity);
-            const principal = Principal.fromText(identity.getPrincipal().toString());
-            const usernameFromPrincipal = await canister.getUsername({ caller: principal });
-            setPrincipal(principal);
-            setUsername(usernameFromPrincipal);
-            console.log("usernameFromPrincipal : ",usernameFromPrincipal)
-            setIsLoggedIn(true);
-          }
-        };
-        checkLoginStatus();
-      }, []);
+       // CHeck for username
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const authClient = await AuthClient.create();
+      const isAuthenticated = await authClient.isAuthenticated();
+      if (isAuthenticated) {
+        const identity = authClient.getIdentity();
+        setIdentity(identity);
+        const principal = Principal.fromText(identity.getPrincipal().toString());
+        const usernameFromPrincipal = await canister.getUsername( {caller : principal} );
+        setPrincipal(principal);
+        setUsername(usernameFromPrincipal);
+        console.log("usernameFromPrincipal : ",usernameFromPrincipal)
+        // setIsLoggedIn(true);
+      }
+      else {
+        // setIsLoggedIn(false);
+      }
+    };
+    const interval = setInterval(checkLoginStatus, 5000); // 5000 milliseconds = 5 seconds
+
+  // clear interval on component unmount
+  return () => clearInterval(interval);
+}, []);
 
 
   // For IC integration

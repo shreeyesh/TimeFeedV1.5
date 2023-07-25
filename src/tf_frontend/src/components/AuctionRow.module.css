@@ -18,6 +18,16 @@
   justify-content: flex-start;
   gap: var(--gap-xs);
 }
+.loader {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aqua;
+}
+
 .toggle {
   position: relative;
   width: 15px;
